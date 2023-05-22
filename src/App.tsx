@@ -1,8 +1,7 @@
 import React from 'react';
 import './App.css';
 
-const App = () =>{
-
+const App = () => {
   return (
     <div className="App">
       <header className="App-header">
@@ -20,6 +19,6 @@ const App = () =>{
       </header>
     </div>
   );
-}
+};
 
 export default App;
