@@ -48,7 +48,8 @@
             "extensions": [".jsx", ".tsx"]
           }
         ],
-				"arrow-body-style": "off"
+				"arrow-body-style": "off",
+        "@typescript-eslint/no-unused-vars": "off"
       },
       "settings": {
         "import/resolver": { //importするファイルをjsだけではなく、tsを含むファイルを許可する
