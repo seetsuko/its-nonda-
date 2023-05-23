@@ -14,6 +14,7 @@ export const Counter = () => {
         padding={10}
         backgroundColor="red"
         display='block'
+        textAlign='center'
         >
       <Text>カウント：{count}</Text>
       <Button
