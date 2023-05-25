@@ -5,7 +5,7 @@ export const Header = () => {
 
   return(
     <header>
-      <h1>tobacco log</h1>
+      <h1>水のみアプリ仮</h1>
     </header>
   )
 }
