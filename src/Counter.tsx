@@ -3,24 +3,23 @@ import { Box, Text, Button, calc, Divider } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 
 export const Counter = () => {
-  const [count, setCount] = useState("");
+  const [count, setCount] = useState(0);
+  const [timeStamp, setTimeStamp] = useState("");
 
-  // 時計の関数
-    useEffect(() => {
+    const increment = () => {
+      const now = dayjs().format("YYYY-MM-DDTHH:mm:ss")
+      setTimeStamp(now)
       const interval = setInterval(() => {
-        setCount(String(dayjs()));
+        setCount(c => c + 1);
       }, 1000);
       return () => clearInterval(interval);
-    }, []);
-    console.log(count)
-
-    // ボタンを
+    }
 
   return (
     <Box padding={10} backgroundColor="red" display="block" textAlign="center">
-      <Text>カウント：{count}ml</Text>
-      <Text>時間：</Text>
-      <Button colorScheme="blue">
+      <Text>カウント：{count}</Text>
+      <Text>時間：{timeStamp}</Text>
+      <Button colorScheme="blue" onClick={increment}>
         Button
       </Button>
     </Box>
