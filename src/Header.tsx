@@ -1,11 +1,10 @@
-import React from "react"
-import "./scss/Header.scss"
+import React from 'react';
+import './scss/Header.scss';
 
 export const Header = () => {
-
-  return(
+  return (
     <header>
       <h1>水のみアプリ仮</h1>
     </header>
-  )
-}
+  );
+};
