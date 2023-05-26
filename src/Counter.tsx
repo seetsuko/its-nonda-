@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { SetStateAction, useEffect, useState } from 'react';
 import { Box, Text, Button, calc, Divider } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import axios, { AxiosResponse } from "axios"
@@ -8,34 +8,29 @@ type Artical = {
   amount: number;
   time: string;
 }
+const urlAPI = "http://localhost:3100/timer"
 
-const getArticals = async (): Promise<Artical[]> => {
-  try{
-    const url = "http://localhost:3100/timer"
-    const response = await axios.get<Artical[]>(url)
-    console.log(response)
-    return response.data
-  } catch(error) {
-    console.error(error);
-    return[]
-  }
-}
 
 export const Counter = () => {
-  const [timerData, setTimerData] = useState<[] |Artical[]>([]);
+  const [drinkData, setDrinkData] = useState([]);
+  const [drinkTime,setDrinkTime] = useState("")
   const [count, setCount] = useState(0);
   const [timeStamp, setTimeStamp] = useState("");
   const min = Math.floor(count/60)
 
 
-    useEffect(() =>{
-      (async () =>{
-        const data =await getArticals();
-        setTimerData(data)
-      })()
+    useEffect(()=>{
+      axios.get(urlAPI)
+    .then((res)=>{
+      console.log(res)
+      setDrinkData(res.data)
+    })
+    .catch((error)=> {
+      console.log(error);
+    })
     },[]);
 
-    console.log(timerData)
+    // console.log(drinkTime)
 
     const increment = () => {
       const now = dayjs().format("YYYY-MM-DDTHH:mm:ss")
@@ -44,6 +39,10 @@ export const Counter = () => {
         setCount(c => c + 1);
       }, 1000);
       return () => clearInterval(interval);
+    }
+
+    const test = (data:SetStateAction<string>) =>{
+      setDrinkTime(data)
     }
 
   return (
@@ -55,7 +54,16 @@ export const Counter = () => {
       <Button colorScheme="blue" onClick={increment}>
         Button
       </Button>
-      {/* <div>{timerData}</div> */}
+      <div>
+        <ul>
+          {drinkData.map((data:Artical)=>{
+            test(data.time)
+            return(
+            <li key={data.id.toString()}><p>{data.time}</p><p>{data.amount}ml</p></li>)
+})}
+        </ul>
+        {/* {timerData} */}
+      </div>
     </Box>
   );
 };
