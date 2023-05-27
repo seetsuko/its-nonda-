@@ -15,7 +15,7 @@ export const Counter = () => {
   const [drinkTime, setDrinkTime] = useState('');
   const [drinkCount, setDrinkCount] = useState(0);
   const [elapsedTime, setElapsedTime] = useState('');
-  const [ running,setRunning] = useState(false)
+  const [running, setRunning] = useState(false);
 
   useEffect(() => {
     axios
@@ -23,16 +23,15 @@ export const Counter = () => {
       .then((res) => {
         setDrinkData(res.data);
         res.data.map((data: Artical) => {
-          return (
-            setDrinkTime(data.time))
+          return setDrinkTime(data.time);
         });
       })
       .catch((error) => {
         console.log(error);
       });
 
-    console.log("スタート・ストップが切り替わりました。")
-    if(running){
+    console.log('スタート・ストップが切り替わりました。');
+    if (running) {
       const interval = setInterval(() => {
         const now = dayjs().format('YYYY-MM-DDTHH:mm:ss');
         const diffHour = dayjs(now).diff(dayjs(drinkTime), 'hour');
@@ -42,25 +41,23 @@ export const Counter = () => {
         setElapsedTime(`${diffHour}時間${diffMin % 60}分${diffSec % 60}秒`);
       }, 1000);
       return () => {
-        clearInterval(interval)
-      }
+        clearInterval(interval);
+      };
     }
   }, [running]);
 
   console.log(drinkTime);
 
   const increment = () => {
-      setRunning(true)
-      setElapsedTime("")
-}
+    setRunning(true);
+    setElapsedTime('');
+  };
 
   console.log(elapsedTime);
 
   return (
     <Box padding={10} backgroundColor="red" display="block" textAlign="center">
-      <Text>
-        カウント：{drinkCount}
-      </Text>
+      <Text>カウント：{drinkCount}</Text>
       <Text>時間：{elapsedTime}</Text>
       <Button colorScheme="blue" onClick={increment}>
         Button
