@@ -13,7 +13,7 @@ const urlAPI = 'http://localhost:3100/timer';
 export const Counter = () => {
   const [drinkData, setDrinkData] = useState([]);
   const [drinkTime, setDrinkTime] = useState('');
-  const [count, setCount] = useState(0);
+  const [drinkCount, setDrinkCount] = useState(0);
   const [elapsedTime, setElapsedTime] = useState('');
   const [ running,setRunning] = useState(false)
 
@@ -59,7 +59,7 @@ export const Counter = () => {
   return (
     <Box padding={10} backgroundColor="red" display="block" textAlign="center">
       <Text>
-        カウント：
+        カウント：{drinkCount}
       </Text>
       <Text>時間：{elapsedTime}</Text>
       <Button colorScheme="blue" onClick={increment}>
