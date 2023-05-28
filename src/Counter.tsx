@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Text, Button } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import axios from 'axios';
+import { useForm } from 'react-hook-form';
 
 type Artical = {
   id: string;
@@ -13,15 +14,17 @@ const urlAPI = 'http://localhost:3100/timer';
 export const Counter = () => {
   const [drinkData, setDrinkData] = useState([]);
   const [drinkTime, setDrinkTime] = useState('');
-  const [count, setCount] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0);
   const [elapsedTime, setElapsedTime] = useState('');
   const [running, setRunning] = useState(false);
+  const { register, handleSubmit } = useForm()
 
   useEffect(() => {
     axios
       .get(urlAPI)
       .then((res) => {
         setDrinkData(res.data);
+        setRunning(true)
         res.data.map((data: Artical) => {
           return setDrinkTime(data.time);
         });
@@ -55,13 +58,22 @@ export const Counter = () => {
 
   console.log(elapsedTime);
 
+  const onSubmit = () => console.log("");
+
   return (
     <Box padding={10} backgroundColor="red" display="block" textAlign="center">
       <Text>カウント：</Text>
       <Text>時間：{elapsedTime}</Text>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <label htmlFor="email">Email
+          <input id="email" {...register('email')} />
+          </label>
+        </div>
       <Button colorScheme="blue" onClick={increment}>
         Button
       </Button>
+      </form>
       <div>
         <ul>
           {drinkData.map((data: Artical) => {
