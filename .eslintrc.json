@@ -51,7 +51,8 @@
 				"arrow-body-style": "off",
         "@typescript-eslint/no-unused-vars": "off",
         "no-console": "off",
-        "consistent-return":"off"
+        "consistent-return":"off",
+        "react/jsx-props-no-spreading": "off"
       },
       "settings": {
         "import/resolver": { //importするファイルをjsだけではなく、tsを含むファイルを許可する
