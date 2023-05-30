@@ -1,13 +1,13 @@
 import React from 'react';
 import './scss/App.scss';
 import { Header } from './Header';
-import ArtistView from './ArtistView';
+import { Counter } from './Counter';
 
 const App = () => {
   return (
     <div className="App">
       <Header />
-      <ArtistView />
+      <Counter />
     </div>
   );
 };
