@@ -45,6 +45,7 @@ export const Counter = () => {
 
   const increment = () => {
     const time = dayjs().format('YYYY/MM/DD HH:mm:ss');
+    setElapsedTime("")
     axios
       .post(urlAPI, {
         time,
