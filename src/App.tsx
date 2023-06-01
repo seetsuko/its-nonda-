@@ -1,7 +1,6 @@
 import React from 'react';
-import './scss/App.scss';
 import { Header } from './Header';
-import { Counter } from './Counter';
+import { Counter } from './pages/Counter';
 
 const App = () => {
   return (

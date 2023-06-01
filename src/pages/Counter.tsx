@@ -66,21 +66,21 @@ export const Counter = () => {
         borderWidth="1px"
         borderColor="gray"
       >
-        <Box marginTop={5}>
+        <Box mt={5}>
           <Text as="b">前回ボタンを押した時間</Text>
           <br />
           <Text as="samp">{timestamp}</Text>
         </Box>
-        <Box marginTop={5}>
+        <Box mt={5}>
           <Text as="b">経過時間</Text>
           <br />
           <Text as="samp">{elapsedTime}</Text>
         </Box>
       </Box>
       <Button
-        colorScheme="green"
+        colorScheme="blue"
         mt="24px"
-        size={{ base: 'lg', md: 'xl' }}
+        size={{ base: 'lg' }}
         onClick={increment}
       >
         のんだ！
