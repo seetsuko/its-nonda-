@@ -14,14 +14,14 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <ChakraProvider>
-     <BrowserRouter>
-    <Provider store={store}>
-    <CookiesProvider>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-      </CookiesProvider>
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <CookiesProvider>
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        </CookiesProvider>
+      </Provider>
     </BrowserRouter>
   </ChakraProvider>
 );

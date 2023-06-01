@@ -1,9 +1,8 @@
-import React,{ useState } from 'react';
+import React, { useState } from 'react';
 
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import Compressor from 'compressorjs';
 import useCookies from 'react-cookie/cjs/useCookies';
 import { useDispatch } from 'react-redux';
 import { signIn } from '../redux/authSlice';
@@ -13,21 +12,16 @@ import { useSelector } from '../redux/store';
 export const SignUp = () => {
   const auth = useSelector((state) => state.auth.isSignIn);
   const dispatch = useDispatch();
-  const formData = new FormData();
   const navigation = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [file, setFile] = useState('');
-  const [preview, setPreview] = useState(
-    'https://4.bp.blogspot.com/-xz7m7yMI-CI/U1T3vVaFfZI/AAAAAAAAfWI/TOJPmuapl-c/s800/figure_standing.png'
-  );
   const [cookie, setCookie, removeCookie] = useCookies();
   const [errorMessage, setErrorMessage] = useState('');
 
-  const onSubmit = async (data:any) => {
+  const onSubmit = async (data: any) => {
     let token = '';
     await axios
       .post(`${url}/users`, data)
@@ -48,37 +42,43 @@ export const SignUp = () => {
       {auth && <Navigate to="/" />}
       <h2> 新規登録</h2>
       <p className="error">{errorMessage}</p>
-      <form onSubmit={handleSubmit(onSubmit)} >
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label htmlFor="name">ユーザー名
-          <input
-            id="signup-name"
-            // バリデーション
-            {...register('name', { required: true })}
-          /></label>
+          <label htmlFor="name">
+            ユーザー名
+            <input
+              id="signup-name"
+              // バリデーション
+              {...register('name', { required: true })}
+            />
+          </label>
           {errors.name && (
             <div className="error">ユーザー名を入力してください</div>
           )}
         </div>
         <div>
-          <label htmlFor="email">メールアドレス
-          <input
-            id="signup-email"
-            // バリデーション
-            {...register('email', { required: true })}
-          /></label>
+          <label htmlFor="email">
+            メールアドレス
+            <input
+              id="signup-email"
+              // バリデーション
+              {...register('email', { required: true })}
+            />
+          </label>
           {errors.email && (
             <div className="error">メールアドレスを入力してください</div>
           )}
         </div>
         <div>
-          <label htmlFor="password">パスワード
-          <input
-            type="password"
-            id="signup-password"
-            // バリデーション
-            {...register('password', { required: true })}
-          /></label>
+          <label htmlFor="password">
+            パスワード
+            <input
+              type="password"
+              id="signup-password"
+              // バリデーション
+              {...register('password', { required: true })}
+            />
+          </label>
           {errors.password && (
             <div className="error">パスワードを入力してください</div>
           )}

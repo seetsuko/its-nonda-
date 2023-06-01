@@ -1,14 +1,12 @@
-import React,{ useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import Compressor from 'compressorjs';
 import { url } from '../const';
 
 export const UserEdit = () => {
-  const formData = new FormData();
   const navigation = useNavigate();
   const [cookie] = useCookies();
   const {
@@ -17,8 +15,6 @@ export const UserEdit = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const [preview, setPreview] = useState('');
-  const [file, setFile] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   // ユーザ表示用API
@@ -31,15 +27,13 @@ export const UserEdit = () => {
       })
       .then((res) => {
         reset({ name: res.data.name });
-        setPreview(res.data.iconUrl);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-
-  const onSubmit = async (data:any) => {
+  const onSubmit = async (data: any) => {
     // ユーザ名更新用API
     await axios
       .put(`${url}/users`, data, {
@@ -61,8 +55,9 @@ export const UserEdit = () => {
       <h2>ユーザー編集</h2>
       <p>{errorMessage}</p>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor='user'>ユーザ名
-        <input type="text" {...register('name', { required: true })} />
+        <label htmlFor="user">
+          ユーザ名
+          <input type="text" {...register('name', { required: true })} />
         </label>
         {errors.name && <div>ユーザー名を入力してください</div>}
         <div>

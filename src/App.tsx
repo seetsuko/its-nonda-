@@ -1,12 +1,12 @@
 import React from 'react';
 import { Header } from './Header';
-import { Counter } from './pages/Counter';
+import { Router } from './routes/Router';
 
 const App = () => {
   return (
     <div className="App">
       <Header />
-      <Counter />
+      <Router/>
     </div>
   );
 };

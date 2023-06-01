@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-
+import { FormLabel, Input, Button, VStack,Text } from '@chakra-ui/react'
 import useCookies from 'react-cookie/cjs/useCookies';
 import { useDispatch } from 'react-redux';
 import { signIn } from '../redux/authSlice';
@@ -21,7 +21,7 @@ export const Login = () => {
   const [cookie, setCookie, remouveCookie] = useCookies();
   const [errorMessage, setErrorMessage] = useState('');
 
-  const onSubmit = (data:any) => {
+  const onSubmit = (data: any) => {
     console.log(data);
     //   ユーザー認証APIを使って、ログイン画面を作成する
     axios
@@ -44,38 +44,44 @@ export const Login = () => {
       {auth && <Navigate to="/" />}
       <h2> ログイン</h2>
       <p className="error">{errorMessage}</p>
+      <VStack>
       <form onSubmit={handleSubmit(onSubmit)} className="user-form">
         <div>
-          <label htmlFor="email">メールアドレス
-          <input
-            id="login-email"
-            // バリデーション
-            {...register('email', { required: true })}
-          /></label>
+          <FormLabel  htmlFor="email">
+            メールアドレス</FormLabel>
+            <Input
+              id="email"
+              placeholder="メールアドレス"
+              // バリデーション
+              {...register('email', { required: true })}
+            />
           {errors.email && (
-            <div className="error">メールアドレスを入力してください</div>
+            <Text color="red.400">メールアドレスを入力してください</Text>
           )}
         </div>
         <div>
-          <label htmlFor="password">パスワード
-          <input
-            type="password"
-            id="login-password"
-            // バリデーション
-            {...register('password', { required: true })}
-          /></label>
+          <FormLabel htmlFor="password">
+            パスワード</FormLabel>
+            <Input
+              type="password"
+              id="login-password"
+              placeholder="パスワード"
+              // バリデーション
+              {...register('password', { required: true })}
+            />
           {errors.password && (
-            <div className="error">パスワードを入力してください</div>
+            <Text color="red.400">パスワードを入力してください</Text>
           )}
         </div>
         <div>
-          <button id="submit" type="submit">
+          <Button mt={4} colorScheme="teal" type="submit">
             ログイン
-          </button>
+          </Button>
         </div>
         {/* ユーザー作成画面へのリンクを配置する */}
         <Link to="/signup">ユーザー新規登録</Link>
       </form>
+      </VStack>
     </div>
   );
 };

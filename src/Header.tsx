@@ -1,5 +1,6 @@
 import React from 'react';
 import { Heading, Box, Container, Flex, Button } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 export const Header = () => {
   return (
@@ -9,7 +10,7 @@ export const Header = () => {
           <Heading as="h1" fontSize="2xl" cursor="pointer">
             のんだ？
           </Heading>
-          <Button>ログイン</Button>
+          <Button><Link to="login"> ログイン</Link></Button>
         </Flex>
       </Container>
     </Box>

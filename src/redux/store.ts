@@ -1,5 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { useSelector as rawUseSelector, TypedUseSelectorHook } from 'react-redux';
+import {
+  useSelector as rawUseSelector,
+  TypedUseSelectorHook,
+} from 'react-redux';
 // authSlicer→authReducerはわかりやすいように名前変えてるだけ
 import authReductor from './authSlice';
 
@@ -13,6 +16,6 @@ export const store = configureStore({
 });
 
 export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>
-export const useSelector: import('react-redux').TypedUseSelectorHook<RootState> = rawUseSelector
-
+export type RootState = ReturnType<typeof store.getState>;
+export const useSelector: import('react-redux').TypedUseSelectorHook<RootState> =
+  rawUseSelector;
