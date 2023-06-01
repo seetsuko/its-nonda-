@@ -10,7 +10,9 @@ export const Header = () => {
           <Heading as="h1" fontSize="2xl" cursor="pointer">
             のんだ？
           </Heading>
-          <Button><Link to="login"> ログイン</Link></Button>
+          <Button>
+            <Link to="login"> ログイン</Link>
+          </Button>
         </Flex>
       </Container>
     </Box>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import { FormLabel, Input, Button, VStack,Text } from '@chakra-ui/react'
+import { FormLabel, Input, Button, VStack, Text } from '@chakra-ui/react';
 import useCookies from 'react-cookie/cjs/useCookies';
 import { useDispatch } from 'react-redux';
 import { signIn } from '../redux/authSlice';
@@ -45,23 +45,21 @@ export const Login = () => {
       <h2> ログイン</h2>
       <p className="error">{errorMessage}</p>
       <VStack>
-      <form onSubmit={handleSubmit(onSubmit)} className="user-form">
-        <div>
-          <FormLabel  htmlFor="email">
-            メールアドレス</FormLabel>
+        <form onSubmit={handleSubmit(onSubmit)} className="user-form">
+          <div>
+            <FormLabel htmlFor="email">メールアドレス</FormLabel>
             <Input
               id="email"
               placeholder="メールアドレス"
               // バリデーション
               {...register('email', { required: true })}
             />
-          {errors.email && (
-            <Text color="red.400">メールアドレスを入力してください</Text>
-          )}
-        </div>
-        <div>
-          <FormLabel htmlFor="password">
-            パスワード</FormLabel>
+            {errors.email && (
+              <Text color="red.400">メールアドレスを入力してください</Text>
+            )}
+          </div>
+          <div>
+            <FormLabel htmlFor="password">パスワード</FormLabel>
             <Input
               type="password"
               id="login-password"
@@ -69,18 +67,18 @@ export const Login = () => {
               // バリデーション
               {...register('password', { required: true })}
             />
-          {errors.password && (
-            <Text color="red.400">パスワードを入力してください</Text>
-          )}
-        </div>
-        <div>
-          <Button mt={4} colorScheme="teal" type="submit">
-            ログイン
-          </Button>
-        </div>
-        {/* ユーザー作成画面へのリンクを配置する */}
-        <Link to="/signup">ユーザー新規登録</Link>
-      </form>
+            {errors.password && (
+              <Text color="red.400">パスワードを入力してください</Text>
+            )}
+          </div>
+          <div>
+            <Button mt={4} colorScheme="teal" type="submit">
+              ログイン
+            </Button>
+          </div>
+          {/* ユーザー作成画面へのリンクを配置する */}
+          <Link to="/signup">ユーザー新規登録</Link>
+        </form>
       </VStack>
     </div>
   );
