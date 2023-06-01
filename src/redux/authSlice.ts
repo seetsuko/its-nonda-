@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { Slice, createSlice } from '@reduxjs/toolkit';
 import { Cookies } from 'react-cookie';
 
 const cookie = new Cookies();
@@ -7,7 +7,7 @@ const initialState = {
   isSignIn: cookie.get('token') !== undefined,
 };
 
-export const authSlice = createSlice({
+export const authSlice:Slice = createSlice({
   name: 'auth',
   initialState,
   reducers: {

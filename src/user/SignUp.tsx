@@ -5,9 +5,10 @@ import { useForm } from 'react-hook-form';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Compressor from 'compressorjs';
 import useCookies from 'react-cookie/cjs/useCookies';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { signIn } from '../redux/authSlice';
 import { url } from '../const';
+import { useSelector } from '../redux/store';
 
 export const SignUp = () => {
   const auth = useSelector((state) => state.auth.isSignIn);
@@ -26,50 +27,19 @@ export const SignUp = () => {
   const [cookie, setCookie, removeCookie] = useCookies();
   const [errorMessage, setErrorMessage] = useState('');
 
-  // 画像を圧縮して確認できるようにする
-  const handleIconChange = (e) => {
-    new Compressor(e.target.files[0], {
-      qualty: 0.6,
-      success(result) {
-        console.log(result);
-        setFile(result);
-        // プレビュー
-        const imageUrl = URL.createObjectURL(result);
-        setPreview(imageUrl);
-      },
-    });
-  };
-
-  const onSubmit = async (data) => {
+  const onSubmit = async (data:any) => {
     let token = '';
-    // ユーザー情報をpost
     await axios
       .post(`${url}/users`, data)
       .then((res) => {
         console.log(res);
         token = res.data.token;
         setCookie('token', token);
-      })
-      .catch((err) => {
-        setErrorMessage(`ユーザー登録に失敗しました。 ${err}`);
-      });
-    // アイコンPOST
-    formData.append('icon', file);
-    await axios
-      .post(`${url}/uploads`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        dispatch(signIn());
-        // UserHomeページへ遷移
+        dispatch(signIn(true));
         navigation('/');
       })
       .catch((err) => {
-        setErrorMessage(`アイコン登録に失敗しました。 ${err}`);
+        setErrorMessage(`ユーザー登録に失敗しました。 ${err}`);
       });
   };
 
@@ -78,19 +48,7 @@ export const SignUp = () => {
       {auth && <Navigate to="/" />}
       <h2> 新規登録</h2>
       <p className="error">{errorMessage}</p>
-      <form onSubmit={handleSubmit(onSubmit)} className="user-form">
-        {/* ユーザアイコンも登録できるようにする */}
-        <div>
-          <div>
-            {/* アイコン画像の確認 */}
-            <img alt="アイコン画像" src={preview} className="icon" />
-          </div>
-          <input
-            type="file"
-            accept="image/png, image/jpg"
-            onChange={handleIconChange}
-          />
-        </div>
+      <form onSubmit={handleSubmit(onSubmit)} >
         <div>
           <label htmlFor="name">ユーザー名
           <input

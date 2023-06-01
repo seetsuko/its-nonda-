@@ -4,9 +4,10 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 
 import useCookies from 'react-cookie/cjs/useCookies';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { signIn } from '../redux/authSlice';
 import { url } from '../const';
+import { useSelector } from '../redux/store';
 
 export const Login = () => {
   const auth = useSelector((state) => state.auth.isSignIn);
@@ -20,7 +21,7 @@ export const Login = () => {
   const [cookie, setCookie, remouveCookie] = useCookies();
   const [errorMessage, setErrorMessage] = useState('');
 
-  const onSubmit = (data) => {
+  const onSubmit = (data:any) => {
     console.log(data);
     //   ユーザー認証APIを使って、ログイン画面を作成する
     axios
@@ -28,7 +29,7 @@ export const Login = () => {
       .then((res) => {
         console.log(res.data.token);
         setCookie('token', res.data.token);
-        dispatch(signIn());
+        dispatch(signIn(true));
         // UserHomeページへ遷移
         navigation('/');
       })

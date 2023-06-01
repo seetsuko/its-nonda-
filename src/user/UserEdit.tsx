@@ -38,35 +38,8 @@ export const UserEdit = () => {
       });
   }, []);
 
-  // 画像を圧縮して確認できるようにする
-  const handleIconChange = (e) => {
-    new Compressor(e.target.files[0], {
-      qualty: 0.6,
-      success(result) {
-        console.log(result);
-        setFile(result);
-        // プレビュー
-        const imageUrl = URL.createObjectURL(result);
-        setPreview(imageUrl);
-      },
-    });
-  };
 
-  const onSubmit = async (data) => {
-    // アイコンPOST
-    if (file !== '') {
-      formData.append('icon', file);
-      await axios
-        .post(`${url}/uploads`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${cookie.token}`,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-        });
-    }
+  const onSubmit = async (data:any) => {
     // ユーザ名更新用API
     await axios
       .put(`${url}/users`, data, {
@@ -88,17 +61,6 @@ export const UserEdit = () => {
       <h2>ユーザー編集</h2>
       <p>{errorMessage}</p>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <div>
-            {/* アイコン画像の確認 */}
-            <img alt="アイコン画像" src={preview} className="icon" />
-          </div>
-          <input
-            type="file"
-            accept="image/png, image/jpg"
-            onChange={handleIconChange}
-          />
-        </div>
         <label htmlFor='user'>ユーザ名
         <input type="text" {...register('name', { required: true })} />
         </label>
