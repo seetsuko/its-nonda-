@@ -1,7 +1,8 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
 import React, { useState, useEffect } from 'react';
-import {Button} from '@chakra-ui/button';
+import { Button } from '@chakra-ui/button';
+import { Box, Text } from '@chakra-ui/react';
 
 type Artical = {
   id: string;
@@ -13,9 +14,8 @@ export const Counter = () => {
   const [timestamp, setTimestamp] = useState('');
   const [elapsedTime, setElapsedTime] = useState('');
   const [dataLog, setDataLog] = useState<Artical>();
-  const loading = timestamp === undefined
+  const loading = timestamp === undefined;
 
-  
   useEffect(() => {
     axios.get(urlAPI).then((res) => {
       setDataLog(res.data);
@@ -45,7 +45,7 @@ export const Counter = () => {
 
   const increment = () => {
     const time = dayjs().format('YYYY/MM/DD HH:mm:ss');
-    setElapsedTime("")
+    setElapsedTime('');
     axios
       .post(urlAPI, {
         time,
@@ -57,16 +57,34 @@ export const Counter = () => {
   };
 
   return (
-    <div>
-      <p>前回ボタンを押した時間：{timestamp}</p>
-      <p>経過時間：{elapsedTime}</p>
-      <Button
-      colorScheme='green'
-      mt='24px'
-      onClick={increment}
+    <Box textAlign="center" p={30} bg="#f7ffe5" h="100vh">
+      <Box
+        w="100%"
+        h="30vh"
+        rounded="md"
+        p={4}
+        borderWidth="1px"
+        borderColor="gray"
       >
-      のんだ！
+        <Box marginTop={5}>
+          <Text as="b">前回ボタンを押した時間</Text>
+          <br />
+          <Text as="samp">{timestamp}</Text>
+        </Box>
+        <Box marginTop={5}>
+          <Text as="b">経過時間</Text>
+          <br />
+          <Text as="samp">{elapsedTime}</Text>
+        </Box>
+      </Box>
+      <Button
+        colorScheme="green"
+        mt="24px"
+        size={{ base: 'lg', md: 'xl' }}
+        onClick={increment}
+      >
+        のんだ！
       </Button>
-    </div>
+    </Box>
   );
 };
