@@ -54,7 +54,9 @@
         "consistent-return":"off",
         "react/jsx-props-no-spreading": "off",
         "import/no-extraneous-dependencies": "off",
-        "array-callback-return": "off"
+        "array-callback-return": "off",
+        "no-param-reassign":"off",
+        "no-new":"off"
       },
       "settings": {
         "import/resolver": { //importするファイルをjsだけではなく、tsを含むファイルを許可する
