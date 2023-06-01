@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { FormLabel, Input, Button, VStack, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { signIn } from '../redux/authSlice';
 import { url } from '../const';
 import { useSelector } from '../redux/store';
 
-export const SignUp = () => {
+export const Register = () => {
   const auth = useSelector((state) => state.auth.isSignIn);
   const dispatch = useDispatch();
   const navigation = useNavigate();
@@ -42,55 +42,42 @@ export const SignUp = () => {
       {auth && <Navigate to="/" />}
       <h2> 新規登録</h2>
       <p className="error">{errorMessage}</p>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor="name">
-            ユーザー名
-            <input
-              id="signup-name"
-              // バリデーション
-              {...register('name', { required: true })}
-            />
-          </label>
-          {errors.name && (
-            <div className="error">ユーザー名を入力してください</div>
-          )}
-        </div>
-        <div>
-          <label htmlFor="email">
-            メールアドレス
-            <input
-              id="signup-email"
+      <VStack>
+        <form onSubmit={handleSubmit(onSubmit)} className="user-form">
+          <div>
+            <FormLabel htmlFor="email">メールアドレス</FormLabel>
+            <Input
+              id="email"
+              placeholder="メールアドレス"
               // バリデーション
               {...register('email', { required: true })}
             />
-          </label>
-          {errors.email && (
-            <div className="error">メールアドレスを入力してください</div>
-          )}
-        </div>
-        <div>
-          <label htmlFor="password">
-            パスワード
-            <input
+            {errors.email && (
+              <Text color="red.400">メールアドレスを入力してください</Text>
+            )}
+          </div>
+          <div>
+            <FormLabel htmlFor="password">パスワード</FormLabel>
+            <Input
               type="password"
-              id="signup-password"
+              id="login-password"
+              placeholder="パスワード"
               // バリデーション
               {...register('password', { required: true })}
             />
-          </label>
-          {errors.password && (
-            <div className="error">パスワードを入力してください</div>
-          )}
-        </div>
-        <div>
-          <button id="signup-submit" type="submit">
-            登録
-          </button>
-        </div>
-      </form>
-      {/* ログイン画面へのリンクを配置する */}
-      <Link to="/login">ログイン画面へ</Link>
+            {errors.password && (
+              <Text color="red.400">パスワードを入力してください</Text>
+            )}
+          </div>
+          <div>
+            <Button mt={4} colorScheme="teal" type="submit">
+              登録
+            </Button>
+          </div>
+          <Link to="/login">ログイン画面へ</Link>
+        </form>
+      </VStack>
     </div>
+      
   );
 };

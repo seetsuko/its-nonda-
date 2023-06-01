@@ -1,13 +1,15 @@
 import React from 'react';
+import { Box } from '@chakra-ui/react';
 import { Header } from './Header';
 import { Router } from './routes/Router';
 
+
 const App = () => {
   return (
-    <div className="App">
+    <Box textAlign="center">
       <Header />
       <Router />
-    </div>
+    </Box>
   );
 };
 

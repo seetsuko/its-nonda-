@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import React, { useState, useEffect } from 'react';
 import { Button } from '@chakra-ui/button';
 import { Box, Text } from '@chakra-ui/react';
+import { TimeList } from './TimeList';
 
 type Artical = {
   id: string;
@@ -53,6 +54,7 @@ export const Counter = () => {
 
   return (
     <Box textAlign="center" p={30} bg="#f7ffe5" h="100vh">
+      <TimeList dataLog={dataLog}/>
       <Box
         w="100%"
         h="30vh"
