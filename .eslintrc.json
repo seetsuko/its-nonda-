@@ -56,7 +56,8 @@
         "import/no-extraneous-dependencies": "off",
         "array-callback-return": "off",
         "no-param-reassign":"off",
-        "no-new":"off"
+        "no-new":"off",
+        "no-alert":"off"
       },
       "settings": {
         "import/resolver": { //importするファイルをjsだけではなく、tsを含むファイルを許可する
