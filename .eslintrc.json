@@ -57,7 +57,8 @@
         "array-callback-return": "off",
         "no-param-reassign":"off",
         "no-new":"off",
-        "no-alert":"off"
+        "no-alert":"off",
+        "no-empty":"off"
       },
       "settings": {
         "import/resolver": { //importするファイルをjsだけではなく、tsを含むファイルを許可する

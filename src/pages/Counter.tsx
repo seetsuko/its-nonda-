@@ -14,7 +14,7 @@ const urlAPI = 'http://localhost:3100/timer';
 export const Counter = () => {
   const [elapsedTime, setElapsedTime] = useState('');
   const [dataLog, setDataLog] = useState<Artical[]>([]);
-  const latestTimestamp = dataLog.at(-1)?.time
+  const latestTimestamp = dataLog.at(-1)?.time;
 
   useEffect(() => {
     axios.get(urlAPI).then((res) => {
@@ -26,7 +26,7 @@ export const Counter = () => {
     if (latestTimestamp !== '') {
       const interval = setInterval(() => {
         const now = dayjs().format('YYYY/MM/DD HH:mm:ss');
-        console.log(latestTimestamp)
+        console.log(latestTimestamp);
         const diffHour = dayjs(now).diff(dayjs(latestTimestamp), 'hour');
         const diffMin = dayjs(now).diff(dayjs(latestTimestamp), 'minute');
         const diffSec = dayjs(now).diff(dayjs(latestTimestamp), 'second');
@@ -54,7 +54,7 @@ export const Counter = () => {
 
   return (
     <Box textAlign="center" p={30} bg="#f7ffe5" h="100vh">
-      <TimeList dataLog={dataLog}/>
+      <TimeList dataLog={dataLog} />
       <Box
         w="100%"
         h="30vh"

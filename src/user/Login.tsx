@@ -77,7 +77,7 @@ export const Login = () => {
             </Button>
           </div>
           {/* ユーザー作成画面へのリンクを配置する */}
-          <Link to="/signup">ユーザー新規登録</Link>
+          <Link to="/register">ユーザー新規登録</Link>
         </form>
       </VStack>
     </div>
