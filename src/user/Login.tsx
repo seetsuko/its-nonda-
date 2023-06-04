@@ -6,29 +6,27 @@ import {
 } from 'firebase/auth';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { FormLabel, Input, Button, VStack, Text } from '@chakra-ui/react';
-import useCookies from 'react-cookie/cjs/useCookies';
+import { FormLabel, Input, Button, VStack, Text, Box } from '@chakra-ui/react';
 import { auth } from '../FirebaseConfig';
 
 type UserType = User | null;
 
 export const Login = () => {
-  const navigation = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [errorMessage, setErrorMessage] = useState('');
   const [user, setUser] = useState<UserType>(null);
 
   useEffect(() => {
+    // ↓ログインしているかどうかを判定する
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
   }, []);
 
-  const onSubmit = async (data: any) => {
+  const onLoginSubmit = async (data: any) => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
     } catch (error) {
@@ -37,16 +35,15 @@ export const Login = () => {
   };
 
   return (
-    <div className="main">
+    <Box>
       {user ? (
         <Navigate to="/" />
       ) : (
-        <div>
-          <h2> ログイン</h2>
-          <p className="error">{errorMessage}</p>
+        <Box>
+          <Text fontSize="xl"> ログイン</Text>
           <VStack>
-            <form onSubmit={handleSubmit(onSubmit)} className="user-form">
-              <div>
+            <form onSubmit={handleSubmit(onLoginSubmit)} className="user-form">
+              <Box>
                 <FormLabel htmlFor="email">
                   メールアドレス
                   <Input
@@ -59,8 +56,8 @@ export const Login = () => {
                 {errors.email && (
                   <Text color="red.400">メールアドレスを入力してください</Text>
                 )}
-              </div>
-              <div>
+              </Box>
+              <Box>
                 <FormLabel htmlFor="password">
                   パスワード
                   <Input
@@ -74,17 +71,17 @@ export const Login = () => {
                 {errors.password && (
                   <Text color="red.400">パスワードを入力してください</Text>
                 )}
-              </div>
-              <div>
+              </Box>
+              <Box>
                 <Button mt={4} colorScheme="teal" type="submit">
                   ログイン
                 </Button>
-              </div>
+              </Box>
               <Link to="/register">新規登録はこちらから</Link>
             </form>
           </VStack>
-        </div>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 };

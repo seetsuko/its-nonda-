@@ -1,8 +1,8 @@
+import React, { useEffect, useState } from 'react';
 import { Box, Text } from '@chakra-ui/react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { User, onAuthStateChanged } from 'firebase/auth';
-import React, { useEffect, useState } from 'react';
 import { auth } from '../FirebaseConfig';
 
 type UserType = User | null;
@@ -19,17 +19,16 @@ export const TimeList = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // ↓ログインしているかどうかを判定する
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
     });
-
+    // APIを叩く
     axios.get(urlAPI).then((res) => {
       setDataLog(res.data);
     });
   }, []);
-
-  console.log(dataLog);
 
   return (
     <Box>

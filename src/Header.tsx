@@ -13,6 +13,7 @@ export const Header = () => {
   const [user, setUser] = useState<UserType>(null);
   const [loading, setLoading] = useState(true);
 
+  // ログインしているかどうかを判定する
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -20,7 +21,7 @@ export const Header = () => {
     });
   }, []);
 
-  const logout = async () => {
+  const handleLogoutSubmit = async () => {
     if (window.confirm('ログアウトしますか？')) {
       await signOut(auth);
       navigate('/login');
@@ -38,17 +39,17 @@ export const Header = () => {
               </Heading>
             </Link>
             {user ? (
-              <Button onClick={logout}> ログアウト</Button>
+              <Button onClick={handleLogoutSubmit}> ログアウト</Button>
             ) : (
-              <div>
+              <Box>
                 {loginPagePath ? (
-                  <div> </div>
+                  <Box> </Box>
                 ) : (
                   <Button>
                     <Link to="/login"> ログイン</Link>
                   </Button>
                 )}
-              </div>
+              </Box>
             )}
           </Flex>
         </Container>

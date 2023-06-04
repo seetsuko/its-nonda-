@@ -1,11 +1,10 @@
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { Link, Navigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { Button } from '@chakra-ui/button';
 import { Box, Text } from '@chakra-ui/react';
-import { TimeList } from './TimeList';
 import { auth } from '../FirebaseConfig';
 
 type UserType = User | null;
@@ -24,11 +23,12 @@ export const Counter = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // ログインしているかどうかを判定する
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
     });
-
+    // APIを叩いて情報を取得
     axios.get(urlAPI).then((res) => {
       setDataLog(res.data);
       setTimestamp(res.data.at(-1)?.time);
@@ -36,6 +36,7 @@ export const Counter = () => {
   }, []);
 
   useEffect(() => {
+    // タイムスタンプからの経過時間を計算
     if (timestamp !== '') {
       const interval = setInterval(() => {
         const now = dayjs().format('YYYY/MM/DD HH:mm:ss');
@@ -53,7 +54,7 @@ export const Counter = () => {
   console.log(dataLog);
   console.log(timestamp);
 
-  const increment = () => {
+  const handleUpdateTimestamp = () => {
     const time = dayjs().format('YYYY/MM/DD HH:mm:ss');
     axios
       .post(urlAPI, {
@@ -69,7 +70,7 @@ export const Counter = () => {
   return (
     <Box>
       {!loading && (
-        <Box  textAlign="center" p={30} bg="#f7ffe5" h="88vh">
+        <Box textAlign="center" p={30} bg="#f7ffe5" h="88vh">
           {user ? (
             <Box>
               <Box
@@ -95,14 +96,12 @@ export const Counter = () => {
                 colorScheme="blue"
                 mt="24px"
                 size={{ base: 'lg' }}
-                onClick={increment}
+                onClick={handleUpdateTimestamp}
               >
                 のんだ！
               </Button>
               <Box>
-                <Link to="/timeList" state={{ dataLog }}>
-                  キロクを見る
-                </Link>
+                <Link to="/timeList">キロクを見る</Link>
               </Box>
             </Box>
           ) : (
