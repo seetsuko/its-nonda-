@@ -1,13 +1,10 @@
-import React from "react"
+import React from 'react';
 
 type Artical = {
   id: string;
   time: string;
 };
 
-export const TimeList = (props:any) =>{
-
-  return(
-    <>a</>
-  )
-}
+export const TimeList = (props: any) => {
+  return <>a</>;
+};

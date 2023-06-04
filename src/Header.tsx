@@ -7,9 +7,11 @@ export const Header = () => {
     <Box px={5} bgColor="green.200" height={20}>
       <Container width="100vw">
         <Flex as="header" py="5" justifyContent="space-between" m="0px">
-          <Heading as="h1" fontSize="2xl" cursor="pointer">
-            のんだ？
-          </Heading>
+          <Link to="/">
+            <Heading as="h1" fontSize="2xl" cursor="pointer">
+              のんだ？
+            </Heading>
+          </Link>
           <Button>
             <Link to="login"> ログイン</Link>
           </Button>

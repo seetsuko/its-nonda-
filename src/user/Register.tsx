@@ -26,7 +26,6 @@ export const Register = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      navigation('/');
     });
   }, []);
 
