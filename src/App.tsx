@@ -6,7 +6,6 @@ import { Router } from './routes/Router';
 const App = () => {
   return (
     <Box textAlign="center">
-      <Header />
       <Router />
     </Box>
   );

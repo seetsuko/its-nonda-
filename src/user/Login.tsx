@@ -80,7 +80,7 @@ export const Login = () => {
                   ログイン
                 </Button>
               </div>
-              <Link to="/register">新規登録</Link>
+              <Link to="/register">新規登録はこちらから</Link>
             </form>
           </VStack>
         </div>

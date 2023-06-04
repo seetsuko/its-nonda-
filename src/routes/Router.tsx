@@ -5,15 +5,19 @@ import { UserEdit } from '../user/UserEdit';
 // import { Counter } from '../pages/Counter';
 import { Mypage } from '../user/Mypage';
 import { Register } from '../user/Register';
+import { Header } from '../Header';
 
 export const Router = () => {
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/profile" element={<UserEdit />} />
-      {/* <Route path="/" element={<Counter />} /> */}
-      <Route path="/" element={<Mypage />} />
-    </Routes>
+    <div>
+      <Header />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<UserEdit />} />
+        {/* <Route path="/" element={<Counter />} /> */}
+        <Route path="/" element={<Mypage />} />
+      </Routes>
+    </div>
   );
 };
