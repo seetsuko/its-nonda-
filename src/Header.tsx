@@ -26,9 +26,9 @@ export const Header = () => {
   };
 
   return (
-    <Box px={5} bgColor="green.200" height={20}>
+    <Box px={5} bgColor="green.200" height="12vh" m={0}>
       {!loading && (
-        <Container width="100vw">
+        <Container width="90vw">
           <Flex as="header" py="5" justifyContent="space-between" m="0px">
             <Link to="/">
               <Heading as="h1" fontSize="2xl" cursor="pointer">

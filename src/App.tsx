@@ -5,7 +5,7 @@ import { Router } from './routes/Router';
 
 const App = () => {
   return (
-    <Box textAlign="center">
+    <Box textAlign="center" m={0} >
       <Router />
     </Box>
   );
