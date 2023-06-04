@@ -23,7 +23,6 @@ export const Counter = () => {
   const [user, setUser] = useState<UserType>(null);
   const [loading, setLoading] = useState(true);
 
-  /* ↓ログインしているかどうかを判定する */
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
