@@ -1,11 +1,14 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import { User, onAuthStateChanged } from 'firebase/auth';
 import { Button } from '@chakra-ui/button';
 import { Box, Text } from '@chakra-ui/react';
 import { TimeList } from './TimeList';
+import { auth } from '../FirebaseConfig';
 
+type UserType = User | null;
 
 type Artical = {
   id: string;
@@ -17,12 +20,20 @@ export const Counter = () => {
   const [timestamp, setTimestamp] = useState('');
   const [elapsedTime, setElapsedTime] = useState('');
   const [dataLog, setDataLog] = useState<Artical[]>([]);
+  const [user, setUser] = useState<UserType>(null);
+  const [loading, setLoading] = useState(true);
 
+  /* ↓ログインしているかどうかを判定する */
   useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+
     axios.get(urlAPI).then((res) => {
       setDataLog(res.data);
       setTimestamp(res.data.at(-1)?.time);
-      });
+    });
   }, []);
 
   useEffect(() => {
@@ -58,36 +69,48 @@ export const Counter = () => {
 
   return (
     <Box textAlign="center" p={30} bg="#f7ffe5" h="88vh">
-      <Box
-        w="100%"
-        h="30vh"
-        rounded="md"
-        p={4}
-        borderWidth="1px"
-        borderColor="gray"
-      >
-        <Box mt={5}>
-          <Text as="b">前回ボタンを押した時間</Text>
-          <br />
-          <Text as="samp">{timestamp}</Text>
+      {!loading && (
+        <Box>
+          {user ? (
+            <Box>
+              <Box
+                w="100%"
+                h="30vh"
+                rounded="md"
+                p={4}
+                borderWidth="1px"
+                borderColor="gray"
+              >
+                <Box mt={5}>
+                  <Text as="b">前回ボタンを押した時間</Text>
+                  <br />
+                  <Text as="samp">{timestamp}</Text>
+                </Box>
+                <Box mt={5}>
+                  <Text as="b">経過時間</Text>
+                  <br />
+                  <Text as="samp">{elapsedTime}</Text>
+                </Box>
+              </Box>
+              <Button
+                colorScheme="blue"
+                mt="24px"
+                size={{ base: 'lg' }}
+                onClick={increment}
+              >
+                のんだ！
+              </Button>
+              <Box>
+                <Link to="/timeList" state={{ dataLog }}>
+                  キロクを見る
+                </Link>
+              </Box>
+            </Box>
+          ) : (
+            <Navigate to="/login" />
+          )}
         </Box>
-        <Box mt={5}>
-          <Text as="b">経過時間</Text>
-          <br />
-          <Text as="samp">{elapsedTime}</Text>
-        </Box>
-      </Box>
-      <Button
-        colorScheme="blue"
-        mt="24px"
-        size={{ base: 'lg' }}
-        onClick={increment}
-      >
-        のんだ！
-      </Button>
-      <Box>
-        <Link to="/timeList" state={{ dataLog }}>キロクを見る</Link>
-      </Box>
+      )}
     </Box>
   );
 };

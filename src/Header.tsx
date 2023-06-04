@@ -21,8 +21,10 @@ export const Header = () => {
   }, []);
 
   const logout = async () => {
-    await signOut(auth);
-    navigate('/login');
+    if (window.confirm('ログアウトしますか？')) {
+      await signOut(auth);
+      navigate('/login');
+    }
   };
 
   return (
@@ -41,10 +43,11 @@ export const Header = () => {
               <div>
                 {loginPagePath ? (
                   <div> </div>
-                ):(
-                <Button>
+                ) : (
+                  <Button>
                     <Link to="/login"> ログイン</Link>
-                  </Button>)}
+                  </Button>
+                )}
               </div>
             )}
           </Flex>

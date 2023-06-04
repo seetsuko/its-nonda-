@@ -1,4 +1,5 @@
-import React from 'react';import { Box } from '@chakra-ui/react';
+import React from 'react';
+import { Box } from '@chakra-ui/react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Login } from '../user/Login';
 
@@ -7,7 +8,6 @@ import { Register } from '../user/Register';
 import { Header } from '../Header';
 import { Counter } from '../pages/Counter';
 import { TimeList } from '../pages/TimeList';
-
 
 export const Router = () => {
   return (
