@@ -9,10 +9,12 @@ type UserType = User | null;
 export const Mypage = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<UserType>(null);
+  const [loading,setLoading] = useState(true)
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setLoading(false)
     });
   }, []);
 
@@ -25,6 +27,8 @@ export const Mypage = () => {
 
   return (
     <div>
+      {!loading && (
+    <div>
       <h1>マイページ</h1>
       {user ? (
         <div>
@@ -35,6 +39,8 @@ export const Mypage = () => {
       ) : (
         <>未ログイン</>
       )}
+    </div>
+    )}
     </div>
   );
 };
