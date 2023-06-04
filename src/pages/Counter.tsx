@@ -67,9 +67,9 @@ export const Counter = () => {
   };
 
   return (
-    <Box textAlign="center" p={30} bg="#f7ffe5" h="88vh">
+    <Box>
       {!loading && (
-        <Box>
+        <Box  textAlign="center" p={30} bg="#f7ffe5" h="88vh">
           {user ? (
             <Box>
               <Box

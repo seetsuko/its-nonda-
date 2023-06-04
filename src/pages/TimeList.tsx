@@ -32,9 +32,9 @@ export const TimeList = () => {
   console.log(dataLog);
 
   return (
-    <Box textAlign="center" p={30} bg="#f7ffe5" h="88vh">
+    <Box>
       {!loading && (
-        <Box>
+        <Box textAlign="center" p={30} bg="#f7ffe5" h="88vh">
           {user ? (
             <Box>
               <Text as="b">ボタンを押した時間の記録</Text>
