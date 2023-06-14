@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../FirebaseConfig';
+import { url } from '../const';
 
 type UserType = User | null;
 
@@ -11,7 +12,6 @@ type Artical = {
   id: string;
   time: string;
 };
-const urlAPI = 'http://localhost:3100/timer';
 
 export const TimeList = () => {
   const [dataLog, setDataLog] = useState<Artical[]>([]);
@@ -25,7 +25,7 @@ export const TimeList = () => {
       setLoading(false);
     });
     // APIを叩く
-    axios.get(urlAPI).then((res) => {
+    axios.get(url).then((res) => {
       setDataLog(res.data);
     });
   }, []);

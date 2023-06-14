@@ -6,6 +6,7 @@ import { User, onAuthStateChanged } from 'firebase/auth';
 import { Button } from '@chakra-ui/button';
 import { Box, Text } from '@chakra-ui/react';
 import { auth } from '../FirebaseConfig';
+import { url } from '../const';
 
 type UserType = User | null;
 
@@ -13,7 +14,6 @@ type Artical = {
   id: string;
   time: string;
 };
-const urlAPI = 'http://localhost:3100/timer';
 
 export const Counter = () => {
   const [timestamp, setTimestamp] = useState('');
@@ -27,12 +27,14 @@ export const Counter = () => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
-    });
     // APIを叩いて情報を取得
-    axios.get(urlAPI).then((res) => {
+    axios
+    .get(url, { headers: { authorization: `Bearer ${currentUser}` } })
+    .then((res) => {
       setDataLog(res.data);
       setTimestamp(res.data.at(-1)?.time);
     });
+  });
   }, []);
 
   useEffect(() => {
@@ -53,11 +55,12 @@ export const Counter = () => {
 
   console.log(dataLog);
   console.log(timestamp);
+  console.log(user)
 
   const handleUpdateTimestamp = () => {
     const time = dayjs().format('YYYY/MM/DD HH:mm:ss');
     axios
-      .post(urlAPI, {
+      .post(url, {
         time,
       })
       .then((res) => {
