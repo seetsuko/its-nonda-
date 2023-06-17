@@ -27,14 +27,22 @@ export const Counter = () => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
-    // APIを叩いて情報を取得
-    axios
-    .get(url, { headers: { authorization: `Bearer ${currentUser}` } })
-    .then((res) => {
-      setDataLog(res.data);
-      setTimestamp(res.data.at(-1)?.time);
+
+      const fetch = async () => {
+        await axios
+          .get(`${url}/time_logs`, {
+            headers: {
+              'Content-Type': 'application/json',
+              authorization: `Bearer ${currentUser?.uid}`,
+            },
+          })
+          .then((res) => {
+            setDataLog(res.data);
+            setTimestamp(res.data.at(-1)?.time);
+          });
+      };
+      fetch();
     });
-  });
   }, []);
 
   useEffect(() => {
@@ -55,7 +63,7 @@ export const Counter = () => {
 
   console.log(dataLog);
   console.log(timestamp);
-  console.log(user)
+  console.log(user?.uid);
 
   const handleUpdateTimestamp = () => {
     const time = dayjs().format('YYYY/MM/DD HH:mm:ss');

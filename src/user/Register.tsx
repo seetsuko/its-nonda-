@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { FormLabel, Input, Button, VStack, Text, Box } from '@chakra-ui/react';
-import type { User } from 'firebase/auth';
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  User,
+  getAuth,
 } from 'firebase/auth';
 import { auth } from '../FirebaseConfig';
+import { url } from '../const';
 
 type UserType = User | null;
 
 export const Register = () => {
-  const navigation = useNavigate();
   const {
     register,
     handleSubmit,
@@ -28,11 +30,26 @@ export const Register = () => {
   }, []);
 
   const handleRegisterSubmit = async (data: any) => {
-    try {
-      await createUserWithEmailAndPassword(auth, data.email, data.password);
-      navigation('/');
-    } catch (error) {
-      alert('正しく入力してください');
+    await createUserWithEmailAndPassword(auth, data.email, data.password).catch(
+      (err) => {
+        alert('正しく入力してください');
+        console.log(err);
+      }
+    );
+
+    // 認証後Rails側にリクエストを送る
+    const authData = getAuth();
+    const currentUser = authData.currentUser;
+    // Firebase Authの認証
+    if (authData && currentUser) {
+      const token = await currentUser.getIdToken(true);
+      const config = { token };
+      // Rails側にリクエストを送る
+      try {
+        await axios.post(`${url}/auth/registrations`, config);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

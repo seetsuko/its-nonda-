@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import {
   User,
+  getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  updateCurrentUser,
 } from 'firebase/auth';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { FormLabel, Input, Button, VStack, Text, Box } from '@chakra-ui/react';
 import { auth } from '../FirebaseConfig';
+import { url } from '../const';
 
 type UserType = User | null;
 
@@ -27,10 +31,26 @@ export const Login = () => {
   }, []);
 
   const onLoginSubmit = async (data: any) => {
-    try {
-      await signInWithEmailAndPassword(auth, data.email, data.password);
-    } catch (error) {
-      alert('メールアドレスまたはパスワードが間違っています');
+    await signInWithEmailAndPassword(auth, data.email, data.password).catch(
+      (err) => {
+        alert('メールアドレスまたはパスワードが間違っています');
+        console.log(err);
+      }
+    );
+
+    // 認証後Rails側にリクエストを送る
+    const authData = getAuth();
+    const currentUser = authData.currentUser;
+    // Firebase Authの認証
+    if (authData && currentUser) {
+      const token = await currentUser.getIdToken(true);
+      const config = { token };
+      // Rails側にリクエストを送る
+      try {
+        await axios.post(`${url}/auth/registrations`, config);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

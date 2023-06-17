@@ -58,7 +58,8 @@
         "no-param-reassign":"off",
         "no-new":"off",
         "no-alert":"off",
-        "no-empty":"off"
+        "no-empty":"off",
+        "prefer-destructuring":"off"
       },
       "settings": {
         "import/resolver": { //importするファイルをjsだけではなく、tsを含むファイルを許可する
