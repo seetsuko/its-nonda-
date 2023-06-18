@@ -1,46 +1,46 @@
-# Getting Started with Create React App
+プロジェクトのタイトル
+×××
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+https://
 
-## Available Scripts
+プロジェクトの概要説明（例）
+×××では、漫画の考察などを自由に投稿・閲覧できる web サイトです。
 
-In the project directory, you can run:
+2022 年の 6 月頃から制作を始めました。
 
-### `npm start`
+実装した機能としては、記事投稿・編集・削除機能と会員登録・編集・削除機能を実装しています。
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+使用言語、環境
+使用言語：TypeScript
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+フレームワーク：React,Next.js
 
-### `npm test`
+認証：Firebase Authentication
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+サーバー：Vercel
 
-### `npm run build`
+データベース：Cloud Firestore (NoSQL)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+ライブラリ：moment.js,Tailwind CSS,Material-UI,react-image-resizer
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+使い方
+git clone
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+npm install
 
-### `npm run eject`
+yarn dev
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+デプロイ方法
+git add . git commit -m " " git push
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+こだわりポイント
+・firestore でクラッド処理を行なっている点
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+・ユーザーの名前変更やプロフ画像の変更
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+今後の計画
+・全ファイルを TypeScript 化する
 
-## Learn More
+・投稿の個別ページの作成
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+・投稿検索機能実装
