@@ -1,29 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Heading, Box, Container, Flex, Button } from '@chakra-ui/react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { User, onAuthStateChanged, signOut } from 'firebase/auth';
+import { signOut } from 'firebase/auth';
 import { auth } from './FirebaseConfig';
-
-type UserType = User | null;
+import { LoginStatusContext } from './App';
 
 export const Header = () => {
   const navigate = useNavigate();
+  const { loading, token, setToken } = useContext(LoginStatusContext);
   const location = useLocation();
   const loginPagePath = location.pathname === '/login';
-  const [user, setUser] = useState<UserType>(null);
-  const [loading, setLoading] = useState(true);
 
   // ログインしているかどうかを判定する
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
-  }, []);
+  const login = token !== '';
 
   const handleLogoutSubmit = async () => {
     if (window.confirm('ログアウトしますか？')) {
       await signOut(auth);
+      setToken('');
       navigate('/login');
     }
   };
@@ -38,7 +32,7 @@ export const Header = () => {
                 のんだ？
               </Heading>
             </Link>
-            {user ? (
+            {login ? (
               <Button onClick={handleLogoutSubmit}> ログアウト</Button>
             ) : (
               <Box>

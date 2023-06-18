@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Box, Text } from '@chakra-ui/react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
-import { User, onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../FirebaseConfig';
 import { url } from '../const';
-
-type UserType = User | null;
+import { LoginStatusContext } from '../App';
 
 type Artical = {
   id: string;
@@ -14,27 +11,35 @@ type Artical = {
 };
 
 export const TimeList = () => {
+  const { loading, token } = useContext(LoginStatusContext);
   const [dataLog, setDataLog] = useState<Artical[]>([]);
-  const [user, setUser] = useState<UserType>(null);
-  const [loading, setLoading] = useState(true);
+
+  const login = token !== '';
+  console.log(token);
 
   useEffect(() => {
-    // ↓ログインしているかどうかを判定する
-    onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
-    // APIを叩く
-    axios.get(url).then((res) => {
-      setDataLog(res.data);
-    });
-  }, []);
+    if (login) {
+      axios
+        .get(`${url}/time_logs`, {
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setDataLog(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [login]);
 
   return (
     <Box>
       {!loading && (
         <Box textAlign="center" p={30} bg="#f7ffe5" h="88vh">
-          {user ? (
+          {login ? (
             <Box>
               <Text as="b">ボタンを押した時間の記録</Text>
               <Box
