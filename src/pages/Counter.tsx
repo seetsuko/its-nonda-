@@ -29,6 +29,7 @@ export const Counter = () => {
       setToken(idToken);
       setLoading(false);
       
+      if(idToken !== null ){
       axios
       .get(`${url}/time_logs`, {
         headers: {
@@ -41,11 +42,12 @@ export const Counter = () => {
         setTimestamp(res.data.at(-1)?.time);
       }).catch((error)=> {
       console.log(error)
-    });
+    });}
   })
     }
     });
   }, []);
+
 
   useEffect(() => {
     // タイムスタンプからの経過時間を計算
@@ -68,8 +70,9 @@ export const Counter = () => {
 
   const handleUpdateTimestamp = () => {
     const time = dayjs().format('YYYY/MM/DD HH:mm:ss');
+    const data = {time :time}
       axios
-        .post(`${url}/time_logs`, time, {
+        .post(`${url}/time_logs`, data, {
           headers: {
             'Content-Type': 'application/json',
             authorization: `Bearer ${token}`,

@@ -59,7 +59,11 @@
         "no-new":"off",
         "no-alert":"off",
         "no-empty":"off",
-        "prefer-destructuring":"off"
+        "prefer-destructuring":"off",
+        "react/jsx-no-constructed-context-values":"off",
+        "import/no-cycle":"off",
+        "object-shorthand":"off",
+        "@typescript-eslint/no-unused-expressions":"off"
       },
       "settings": {
         "import/resolver": { //importするファイルをjsだけではなく、tsを含むファイルを許可する
