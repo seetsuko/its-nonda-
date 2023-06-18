@@ -18,9 +18,8 @@ export const TimeList = () => {
   console.log(token);
 
   useEffect(() => {
-    if (login) {
       axios
-        .get(`${url}/time_logs`, {
+        .get(`${url}/do_logs`, {
           headers: {
             'Content-Type': 'application/json',
             authorization: `Bearer ${token}`,
@@ -32,8 +31,9 @@ export const TimeList = () => {
         .catch((error) => {
           console.log(error);
         });
-    }
-  }, [login]);
+  }, [token]);
+
+  console.log(dataLog)
 
   return (
     <Box>

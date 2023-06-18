@@ -16,23 +16,20 @@ export const Counter = () => {
   console.log(token);
 
   useEffect(() => {
-    if (login) {
       axios
-        .get(`${url}/time_logs`, {
+        .get(`${url}/do_logs`, {
           headers: {
             'Content-Type': 'application/json',
             authorization: `Bearer ${token}`,
           },
         })
         .then((res) => {
-          // setDataLog(res.data);
           setTimestamp(res.data.at(-1)?.time);
         })
         .catch((error) => {
           console.log(error);
         });
-    }
-  }, [login]);
+  }, [token]);
 
   useEffect(() => {
     // タイムスタンプからの経過時間を計算
@@ -54,7 +51,7 @@ export const Counter = () => {
     const time = dayjs().format('YYYY/MM/DD HH:mm:ss');
     const data = { time: time };
     axios
-      .post(`${url}/time_logs`, data, {
+      .post(`${url}/do_logs`, data, {
         headers: {
           'Content-Type': 'application/json',
           authorization: `Bearer ${token}`,
@@ -66,8 +63,6 @@ export const Counter = () => {
         console.log('POST完了！');
       });
   };
-
-  // console.log(dataLog)
 
   return (
     <Box>
