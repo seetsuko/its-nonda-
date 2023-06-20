@@ -16,19 +16,19 @@ export const Counter = () => {
   console.log(token);
 
   useEffect(() => {
-      axios
-        .get(`${url}/do_logs`, {
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          setTimestamp(res.data.at(-1)?.time);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    axios
+      .get(`${url}/do_logs`, {
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setTimestamp(res.data.at(-1)?.time);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, [token]);
 
   useEffect(() => {

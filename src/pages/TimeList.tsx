@@ -18,22 +18,22 @@ export const TimeList = () => {
   console.log(token);
 
   useEffect(() => {
-      axios
-        .get(`${url}/do_logs`, {
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          setDataLog(res.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    axios
+      .get(`${url}/do_logs`, {
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setDataLog(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, [token]);
 
-  console.log(dataLog)
+  console.log(dataLog);
 
   return (
     <Box>

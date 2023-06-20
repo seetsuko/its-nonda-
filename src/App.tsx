@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, updateCurrentUser } from 'firebase/auth';
 import { Box } from '@chakra-ui/react';
 import { Router } from './routes/Router';
 import { auth } from './FirebaseConfig';
@@ -39,6 +39,8 @@ const App = () => {
       }
     });
   }, []);
+
+  updateCurrentUser;
 
   return (
     <Box textAlign="center" m={0}>

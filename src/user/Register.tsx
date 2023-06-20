@@ -3,14 +3,10 @@ import { FormLabel, Input, Button, VStack, Text, Box } from '@chakra-ui/react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { Link, Navigate } from 'react-router-dom';
-import {
-  createUserWithEmailAndPassword,
-  getAuth,
-} from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { auth } from '../FirebaseConfig';
 import { url } from '../const';
 import { LoginStatusContext } from '../App';
-
 
 export const Register = () => {
   const { loading, token } = useContext(LoginStatusContext);
