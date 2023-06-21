@@ -11,7 +11,6 @@ export const Header = () => {
   const location = useLocation();
   const loginPagePath = location.pathname === '/login';
 
-  // ログインしているかどうかを判定する
   const login = token !== '';
 
   const handleLogoutSubmit = async () => {
@@ -23,7 +22,7 @@ export const Header = () => {
   };
 
   return (
-    <Box px={5} bgColor="green.200" height="12vh" m={0}>
+    <Box px={5} bgGradient="linear(to-r, #566eea,#33c5b8)" height="12vh" m={0}>
       {!loading && (
         <Container width="90vw">
           <Flex as="header" py="5" justifyContent="space-between" m="0px">

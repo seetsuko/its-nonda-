@@ -10,7 +10,7 @@ type LoginStatus = {
   setToken: any;
 };
 
-// ログインできてるか
+// ログイン状態をContextにする
 export const LoginStatusContext = createContext<LoginStatus>({
   loading: true,
   token: '',

@@ -67,13 +67,13 @@ export const Counter = () => {
   return (
     <Box>
       {!loading && (
-        <Box textAlign="center" p={30} bg="#f7ffe5" h="88vh">
+        <Box textAlign="center" p={30} bg="#fefefe" h="88vh">
           {login ? (
             <Box>
               <Box
                 w="100%"
                 h="30vh"
-                rounded="md"
+                rounded={40}
                 p={4}
                 borderWidth="1px"
                 borderColor="gray"
@@ -90,7 +90,11 @@ export const Counter = () => {
                 </Box>
               </Box>
               <Button
-                colorScheme="blue"
+                variant="solid"
+                fontSize={{ base: "xl", lg: "3xl" }}
+               bgColor="#7bdbe6"
+               borderBottom="solid 5px #4d618d"
+               borderRadius="10px"
                 mt="24px"
                 size={{ base: 'lg' }}
                 onClick={handleUpdateTimestamp}
