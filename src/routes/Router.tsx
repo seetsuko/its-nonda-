@@ -5,7 +5,7 @@ import { Login } from '../user/Login';
 import { Register } from '../user/Register';
 import { Header } from '../Header';
 import { Counter } from '../pages/Counter';
-import { TimeList } from '../pages/TimeList';
+import { TimeLog } from '../pages/TimeLog';
 
 export const Router = () => {
   return (
@@ -15,7 +15,7 @@ export const Router = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Counter />} />
-        <Route path="/timelist" element={<TimeList />} />
+        <Route path="/timelist" element={<TimeLog />} />
       </Routes>
     </Box>
   );

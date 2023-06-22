@@ -10,7 +10,7 @@ type Artical = {
   time: string;
 };
 
-export const TimeList = () => {
+export const TimeLog = () => {
   const { loading, token } = useContext(LoginStatusContext);
   const [dataLog, setDataLog] = useState<Artical[]>([]);
 
@@ -38,7 +38,7 @@ export const TimeList = () => {
   return (
     <Box>
       {!loading && (
-        <Box textAlign="center" p={30}  bg="#fefefe" h="88vh">
+        <Box textAlign="center" p={30} bg="#fefefe" h="88vh">
           {login ? (
             <Box>
               <Text as="b">ボタンを押した時間の記録</Text>
@@ -52,10 +52,10 @@ export const TimeList = () => {
                 overflow="auto"
                 mt={5}
               >
-                {dataLog.map((d) => {
+                {dataLog.map((data) => {
                   return (
                     <Box mt={2}>
-                      <Text as="samp">{d.time}</Text> <br />
+                      <Text as="samp">{data.time}</Text> <br />
                     </Box>
                   );
                 })}

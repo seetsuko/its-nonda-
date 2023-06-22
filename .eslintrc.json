@@ -32,7 +32,8 @@
             "js": "never",
             "jsx": "never",
             "ts": "never",
-            "tsx": "never"
+            "tsx": "never",
+            "scss": "never"
           }
         ],
         "react/function-component-definition": [ // アロー関数以外受け付けない設定
@@ -63,7 +64,10 @@
         "react/jsx-no-constructed-context-values":"off",
         "import/no-cycle":"off",
         "object-shorthand":"off",
-        "@typescript-eslint/no-unused-expressions":"off"
+        "@typescript-eslint/no-unused-expressions":"off",
+        "react/no-array-index-key":"off",
+        "import/no-self-import":"off",
+        "no-restricted-globals":"off"
       },
       "settings": {
         "import/resolver": { //importするファイルをjsだけではなく、tsを含むファイルを許可する

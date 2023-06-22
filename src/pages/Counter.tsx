@@ -3,19 +3,40 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { Link, Navigate } from 'react-router-dom';
 import { Button } from '@chakra-ui/button';
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import { url } from '../const';
 import { LoginStatusContext } from '../App';
 
+type Artical = {
+  id: string;
+  title: string;
+};
+
 export const Counter = () => {
   const { loading, token } = useContext(LoginStatusContext);
+  const [list,setList] = useState<Artical[]>([])
+  const [selectListId,setSelectListId] = useState()
   const [timestamp, setTimestamp] = useState('');
   const [elapsedTime, setElapsedTime] = useState('');
 
   const login = token !== '';
-  console.log(token);
+  // console.log(token);
 
   useEffect(() => {
+    axios
+      .get(`${url}/do_lists`, {
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setList(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     axios
       .get(`${url}/do_logs`, {
         headers: {
@@ -47,6 +68,10 @@ export const Counter = () => {
     }
   }, [timestamp]);
 
+  const handleSelectList = (id:any) => {
+    console.log(id)
+  }
+
   const handleUpdateTimestamp = () => {
     const time = dayjs().format('YYYY/MM/DD HH:mm:ss');
     const data = { time: time };
@@ -70,6 +95,26 @@ export const Counter = () => {
         <Box textAlign="center" p={30} bg="#fefefe" h="88vh">
           {login ? (
             <Box>
+              <Box mt={5} mb={8}>
+              <Text mb={4}>リスト一覧</Text>
+              {list.map((data, key) => {
+              const isActive = data.id === selectListId;
+              return (
+                <Button mr={1} mb={1} bgColor="#a3eabb"
+                  tabIndex={0}
+                  role="tab"
+                  key={key}
+                  className={`list-tab-item ${isActive ? "active" : ""}`}
+                  onClick={() => handleSelectList(data.id)}
+                  onKeyDown={(event) => {
+                    if(event.key === 'Enter'){handleSelectList(data.id)}
+                  }}
+                  >
+                  {data.title}
+                </Button>
+              );
+            })}
+            </Box>
               <Box
                 w="100%"
                 h="30vh"
