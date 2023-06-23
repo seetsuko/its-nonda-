@@ -16,8 +16,8 @@ export const Header = () => {
   const handleLogoutSubmit = async () => {
     if (window.confirm('ログアウトしますか？')) {
       await signOut(auth);
-      setToken('');
       navigate('/login');
+      setToken('');
     }
   };
 

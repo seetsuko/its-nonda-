@@ -15,9 +15,10 @@ export const TimeLog = () => {
   const [dataLog, setDataLog] = useState<Artical[]>([]);
 
   const login = token !== '';
-  console.log(token);
+  // console.log(token);
 
   useEffect(() => {
+    if(login){
     axios
       .get(`${url}/do_logs`, {
         headers: {
@@ -31,6 +32,7 @@ export const TimeLog = () => {
       .catch((error) => {
         console.log(error);
       });
+    }
   }, [token]);
 
   console.log(dataLog);
@@ -54,8 +56,8 @@ export const TimeLog = () => {
               >
                 {dataLog.map((data) => {
                   return (
-                    <Box mt={2}>
-                      <Text as="samp">{data.time}</Text> <br />
+                    <Box mt={2} key={data.id}>
+                      <Text as="samp" >{data.time}</Text> <br />
                     </Box>
                   );
                 })}
