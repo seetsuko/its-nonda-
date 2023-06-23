@@ -14,8 +14,8 @@ type Artical = {
 
 export const Counter = () => {
   const { loading, token } = useContext(LoginStatusContext);
-  const [list,setList] = useState<Artical[]>([])
-  const [selectListId,setSelectListId] = useState()
+  const [list, setList] = useState<Artical[]>([]);
+  const [selectListId, setSelectListId] = useState('');
   const [timestamp, setTimestamp] = useState('');
   const [elapsedTime, setElapsedTime] = useState('');
 
@@ -23,34 +23,34 @@ export const Counter = () => {
   // console.log(token);
 
   useEffect(() => {
-    if(login){
-    axios
-      .get(`${url}/do_lists`, {
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setList(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (login) {
+      axios
+        .get(`${url}/do_lists`, {
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setList(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
 
-    axios
-      .get(`${url}/do_logs`, {
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setTimestamp(res.data.at(-1)?.time);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      axios
+        .get(`${url}/do_logs`, {
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setTimestamp(res.data.at(-1)?.time);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, [token]);
 
@@ -70,9 +70,10 @@ export const Counter = () => {
     }
   }, [timestamp]);
 
-  const handleSelectList = (id:any) => {
-    console.log(id)
-  }
+  const handleSelectList = (id: any) => {
+    console.log(id);
+    setSelectListId(id);
+  };
 
   const handleUpdateTimestamp = () => {
     const time = dayjs().format('YYYY/MM/DD HH:mm:ss');
@@ -97,26 +98,40 @@ export const Counter = () => {
         <Box textAlign="center" p={30} bg="#fefefe" h="88vh">
           {login ? (
             <Box>
-              <Box mt={5} mb={8}>
-              <Text mb={4}>リスト一覧</Text>
-              {list.map((data, key) => {
-              const isActive = data.id === selectListId;
-              return (
-                <Button mr={1} mb={1} _hover={{bg:"#a3eabb"}}
-                  tabIndex={0}
-                  role="tab"
-                  key={key}
-                  className={`list-tab-item ${isActive ? "active" : ""}`}
-                  onClick={() => handleSelectList(data.id)}
-                  onKeyDown={(event) => {
-                    if(event.key === 'Enter'){handleSelectList(data.id)}
-                  }}
-                  >
-                  {data.title}
-                </Button>
-              );
-            })}
-            </Box>
+              <Box mt={3} mb={8}>
+                <Text mb={4}>リスト一覧</Text>
+                <ul className="list-tab" role="tablist" aria-label="リスト一覧">
+                  {list.map((data) => {
+                    const isActive = data.id === selectListId;
+                    return (
+                      <li
+                        tabIndex={0}
+                        role="tab"
+                        key={data.id}
+                        className={`list-tab-item ${isActive ? 'active' : ''}`}
+                        onClick={() => handleSelectList(data.id)}
+                        onKeyDown={(event) => {
+                          if (event.key === 'Enter') {
+                            handleSelectList(data.id);
+                          }
+                        }}
+                      >
+                        {data.title}
+                      </li>
+                    );
+                  })}
+                </ul>
+                <Flex w="200px" justifyContent="space-between" m="0 auto">
+                  <Box mr={3}>
+                    <Link to="/list_create">リスト作成</Link>
+                  </Box>
+                  <Box>
+                    {selectListId !== '' && (
+                      <Link to={`list/${selectListId}/edit`}>リスト編集</Link>
+                    )}
+                  </Box>
+                </Flex>
+              </Box>
               <Box
                 w="100%"
                 h="30vh"
@@ -138,10 +153,10 @@ export const Counter = () => {
               </Box>
               <Button
                 variant="solid"
-                fontSize={{ base: "xl", lg: "3xl" }}
-               bgColor="#7bdbe6"
-               borderBottom="solid 5px #4d618d"
-               borderRadius="10px"
+                fontSize={{ base: 'xl', lg: '3xl' }}
+                bgColor="#7bdbe6"
+                borderBottom="solid 5px #4d618d"
+                borderRadius="10px"
                 mt="24px"
                 size={{ base: 'lg' }}
                 onClick={handleUpdateTimestamp}

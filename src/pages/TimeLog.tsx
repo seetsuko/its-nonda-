@@ -18,20 +18,20 @@ export const TimeLog = () => {
   // console.log(token);
 
   useEffect(() => {
-    if(login){
-    axios
-      .get(`${url}/do_logs`, {
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setDataLog(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (login) {
+      axios
+        .get(`${url}/do_logs`, {
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setDataLog(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, [token]);
 
@@ -57,7 +57,7 @@ export const TimeLog = () => {
                 {dataLog.map((data) => {
                   return (
                     <Box mt={2} key={data.id}>
-                      <Text as="samp" >{data.time}</Text> <br />
+                      <Text as="samp">{data.time}</Text> <br />
                     </Box>
                   );
                 })}

@@ -6,16 +6,20 @@ import { Register } from '../user/Register';
 import { Header } from '../Header';
 import { Counter } from '../pages/Counter';
 import { TimeLog } from '../pages/TimeLog';
+import { ListCreate } from '../pages/ListCreate';
+import { ListEdit } from '../pages/ListEdit';
 
 export const Router = () => {
   return (
-    <Box m={0}>
+    <Box m={0} w="100vw" h="100vh">
       <Header />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Counter />} />
-        <Route path="/timelist" element={<TimeLog />} />
+        <Route path="/time_list" element={<TimeLog />} />
+        <Route path="/list_create" element={<ListCreate />} />
+        <Route path="/list/:listId/edit" element={<ListEdit />} />
       </Routes>
     </Box>
   );

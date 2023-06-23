@@ -62,7 +62,7 @@ export const Register = () => {
                       メールアドレス
                       <Input
                         id="email"
-                        placeholder="メールアドレス"
+                        placeholder="メールアドレスを入力"
                         // バリデーション
                         {...register('email', { required: true })}
                       />
@@ -79,7 +79,7 @@ export const Register = () => {
                       <Input
                         type="password"
                         id="login-password"
-                        placeholder="パスワード"
+                        placeholder="パスワードを入力"
                         // バリデーション
                         {...register('password', { required: true })}
                       />
