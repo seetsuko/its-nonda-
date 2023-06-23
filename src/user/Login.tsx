@@ -35,7 +35,7 @@ export const Login = () => {
       const config = { tokenData };
       // Rails側にリクエストを送る
       try {
-        await axios.post(`${url}/auth/registrations`, config);
+        await axios.post(`${url}/auth/users`, config);
       } catch (error) {
         console.log(error);
       }

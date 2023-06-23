@@ -23,6 +23,7 @@ export const Counter = () => {
   // console.log(token);
 
   useEffect(() => {
+    if(login){
     axios
       .get(`${url}/do_lists`, {
         headers: {
@@ -50,6 +51,7 @@ export const Counter = () => {
       .catch((error) => {
         console.log(error);
       });
+    }
   }, [token]);
 
   useEffect(() => {
@@ -100,7 +102,7 @@ export const Counter = () => {
               {list.map((data, key) => {
               const isActive = data.id === selectListId;
               return (
-                <Button mr={1} mb={1} bgColor="#a3eabb"
+                <Button mr={1} mb={1} _hover={{bg:"#a3eabb"}}
                   tabIndex={0}
                   role="tab"
                   key={key}
@@ -146,7 +148,7 @@ export const Counter = () => {
               >
                 のんだ！
               </Button>
-              <Box>
+              <Box mt={4}>
                 <Link to="/timeList">キロクを見る</Link>
               </Box>
             </Box>
