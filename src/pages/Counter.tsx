@@ -16,6 +16,7 @@ export const Counter = () => {
   const { loading, token } = useContext(LoginStatusContext);
   const [list, setList] = useState<Artical[]>([]);
   const [selectListId, setSelectListId] = useState('');
+  const [selectTitle,setSelectTitle] = useState("")
   const [timestamp, setTimestamp] = useState('');
   const [elapsedTime, setElapsedTime] = useState('');
 
@@ -70,9 +71,11 @@ export const Counter = () => {
     }
   }, [timestamp]);
 
-  const handleSelectList = (id: any) => {
-    console.log(id);
-    setSelectListId(id);
+  const handleSelectList = (data: any) => {
+    // console.log(data.id);
+    // console.log(data.title);
+    setSelectListId(data.id);
+    setSelectTitle(data.title)
   };
 
   const handleUpdateTimestamp = () => {
@@ -109,10 +112,10 @@ export const Counter = () => {
                         role="tab"
                         key={data.id}
                         className={`list-tab-item ${isActive ? 'active' : ''}`}
-                        onClick={() => handleSelectList(data.id)}
+                        onClick={() => handleSelectList(data)}
                         onKeyDown={(event) => {
                           if (event.key === 'Enter') {
-                            handleSelectList(data.id);
+                            handleSelectList(data);
                           }
                         }}
                       >
@@ -127,7 +130,7 @@ export const Counter = () => {
                   </Box>
                   <Box>
                     {selectListId !== '' && (
-                      <Link to={`list/${selectListId}/edit`}>リスト編集</Link>
+                      <Link to={`list/${selectListId}/edit`} state={{ selectTitle }} >リスト編集</Link>
                     )}
                   </Box>
                 </Flex>

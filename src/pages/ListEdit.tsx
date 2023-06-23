@@ -2,17 +2,14 @@ import React, { useContext } from 'react';
 import { Box, Button, FormLabel, Input, Text, VStack } from '@chakra-ui/react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { LoginStatusContext } from '../App';
 import { url } from '../const';
 
-interface State {
-  selectListId: string;
-}
-
 export const ListEdit = () => {
-  const location = useLocation();
-  const { selectListId } = location.state as State;
+  const id =useParams()
+  const {state} = useLocation()
+  const title =state.selectTitle
   const { loading, token } = useContext(LoginStatusContext);
   const navigate = useNavigate();
   const {
@@ -22,19 +19,20 @@ export const ListEdit = () => {
   } = useForm();
 
   const login = token !== '';
-  // console.log(token);
-  console.log(selectListId);
+  // console.log(id.listId);
+  console.log(title)
+
 
   const onCreateSubmit = async (data: any) => {
     await axios
-      .post(`${url}/do_lists`, data, {
+      .put(`${url}/do_lists/${id.listId}`, data, {
         headers: {
           'Content-Type': 'application/json',
           authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
-        console.log('POST完了！');
+        console.log(res);
         navigate('/');
       });
   };
@@ -47,7 +45,6 @@ export const ListEdit = () => {
             <Box>
               <Text fontSize="xl"> リスト編集</Text>
               <VStack>
-                {selectListId}
                 <form
                   onSubmit={handleSubmit(onCreateSubmit)}
                   className="user-form"
@@ -57,7 +54,7 @@ export const ListEdit = () => {
                       リスト名
                       <Input
                         id="title"
-                        placeholder="リスト名を入力"
+                        placeholder={title}
                         // バリデーション
                         {...register('title', { required: true })}
                       />
@@ -68,7 +65,7 @@ export const ListEdit = () => {
                   </Box>
                   <Box>
                     <Button mt={4} colorScheme="teal" type="submit">
-                      作成！
+                      編集！
                     </Button>
                   </Box>
                 </form>

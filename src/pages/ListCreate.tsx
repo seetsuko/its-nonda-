@@ -27,7 +27,7 @@ export const ListCreate = () => {
         },
       })
       .then((res) => {
-        console.log('POST完了！');
+        console.log('作成完了！');
         navigate('/');
       });
   };
