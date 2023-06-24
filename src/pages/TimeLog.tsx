@@ -20,7 +20,7 @@ export const TimeLog = () => {
   useEffect(() => {
     if (login) {
       axios
-        .get(`${url}/do_logs`, {
+        .get(`${url}/time_logs/`, {
           headers: {
             'Content-Type': 'application/json',
             authorization: `Bearer ${token}`,

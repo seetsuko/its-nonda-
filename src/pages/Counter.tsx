@@ -16,12 +16,13 @@ export const Counter = () => {
   const { loading, token } = useContext(LoginStatusContext);
   const [list, setList] = useState<Artical[]>([]);
   const [selectListId, setSelectListId] = useState('');
-  const [selectTitle,setSelectTitle] = useState("")
+  const [selectTitle, setSelectTitle] = useState('');
   const [timestamp, setTimestamp] = useState('');
   const [elapsedTime, setElapsedTime] = useState('');
 
   const login = token !== '';
   // console.log(token);
+  console.log(list);
 
   useEffect(() => {
     if (login) {
@@ -34,26 +35,35 @@ export const Counter = () => {
         })
         .then((res) => {
           setList(res.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-
-      axios
-        .get(`${url}/do_logs`, {
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          setTimestamp(res.data.at(-1)?.time);
+          setSelectListId(res.data.at(0)?.id);
         })
         .catch((error) => {
           console.log(error);
         });
     }
   }, [token]);
+
+  useEffect(() => {
+    const fetch = async () => {
+      if (selectListId !== '') {
+        await axios
+          .get(`${url}/do_lists/${selectListId}/time_logs`, {
+            headers: {
+              'Content-Type': 'application/json',
+              authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => {
+            // console.log(res.data)
+            setTimestamp(res.data.at(-1)?.time);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    };
+    fetch();
+  }, [selectListId]);
 
   useEffect(() => {
     // タイムスタンプからの経過時間を計算
@@ -71,18 +81,20 @@ export const Counter = () => {
     }
   }, [timestamp]);
 
+  // リストを選んだらidとtitleのstateへセットする
   const handleSelectList = (data: any) => {
     // console.log(data.id);
     // console.log(data.title);
     setSelectListId(data.id);
-    setSelectTitle(data.title)
+    setSelectTitle(data.title);
+    setElapsedTime('');
   };
 
   const handleUpdateTimestamp = () => {
     const time = dayjs().format('YYYY/MM/DD HH:mm:ss');
     const data = { time: time };
     axios
-      .post(`${url}/do_logs`, data, {
+      .post(`${url}/do_lists/${selectListId}/time_logs`, data, {
         headers: {
           'Content-Type': 'application/json',
           authorization: `Bearer ${token}`,
@@ -130,7 +142,12 @@ export const Counter = () => {
                   </Box>
                   <Box>
                     {selectListId !== '' && (
-                      <Link to={`list/${selectListId}/edit`} state={{ selectTitle }} >リスト編集</Link>
+                      <Link
+                        to={`list/${selectListId}/edit`}
+                        state={{ selectTitle }}
+                      >
+                        リスト編集
+                      </Link>
                     )}
                   </Box>
                 </Flex>
