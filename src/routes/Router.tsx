@@ -17,7 +17,7 @@ export const Router = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Counter />} />
-        <Route path="/time_list" element={<TimeLog />} />
+        <Route path="/time_list/:listId" element={<TimeLog />} />
         <Route path="/list_create" element={<ListCreate />} />
         <Route path="/list/:listId/edit" element={<ListEdit />} />
       </Routes>

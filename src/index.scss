@@ -16,6 +16,9 @@ code {
   list-style: none;
   display: flex;
   overflow-x: auto;
+  width: 70vw;
+  padding: 0;
+  margin: 0 auto;
 
   .list-tab-item {
     flex-shrink: 0;
@@ -26,6 +29,8 @@ code {
     border: solid 1px #18614150;
     justify-content: center;
     align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
   }
   .active {
     background-color: #7ee6c3;

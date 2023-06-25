@@ -58,9 +58,9 @@ export const ListEdit = () => {
   return (
     <Box w="90vw">
       {!loading && (
-        <Box>
+        <Box textAlign="center" p={50} bg="#fefefe" h="88vh">
           {login ? (
-            <Box>
+            <Box m={3} mb={8} textAlign="center">
               <Text fontSize="xl"> リスト編集</Text>
               <VStack>
                 <form onSubmit={handleSubmit(onEditList)} className="user-form">

@@ -20,7 +20,7 @@ export const ListCreate = () => {
 
   const onCreateSubmit = async (data: any) => {
     await axios
-      .post(`${url}/do_lists`, data, {
+      .post(`${url}users/userid/do_lists`, data, {
         headers: {
           'Content-Type': 'application/json',
           authorization: `Bearer ${token}`,
@@ -35,9 +35,9 @@ export const ListCreate = () => {
   return (
     <Box w="90vw">
       {!loading && (
-        <Box>
+        <Box textAlign="center" p={50} bg="#fefefe" h="88vh">
           {login ? (
-            <Box>
+            <Box m={3} mb={8} textAlign="center">
               <Text fontSize="xl"> リスト作成</Text>
               <VStack>
                 <form

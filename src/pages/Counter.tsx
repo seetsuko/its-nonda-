@@ -36,6 +36,7 @@ export const Counter = () => {
         .then((res) => {
           setList(res.data);
           setSelectListId(res.data.at(0)?.id);
+          setSelectTitle(res.data.at(0)?.title);
         })
         .catch((error) => {
           console.log(error);
@@ -110,11 +111,13 @@ export const Counter = () => {
   return (
     <Box>
       {!loading && (
-        <Box textAlign="center" p={30} bg="#fefefe" h="88vh">
+        <Box textAlign="center" p={50} bg="#fefefe" h="88vh">
           {login ? (
             <Box>
-              <Box mt={3} mb={8}>
-                <Text mb={4}>リスト一覧</Text>
+              <Box m={3} mb={8} textAlign="center">
+                <Text mb={4} fontSize="xl">
+                  リスト一覧
+                </Text>
                 <ul className="list-tab" role="tablist" aria-label="リスト一覧">
                   {list.map((data) => {
                     const isActive = data.id === selectListId;
@@ -136,22 +139,28 @@ export const Counter = () => {
                     );
                   })}
                 </ul>
-                <Flex w="200px" justifyContent="space-between" m="0 auto">
-                  <Box mr={3}>
+                <Flex
+                  w="200px"
+                  justifyContent="space-between"
+                  m="20px auto"
+                  color="#1715ac"
+                >
+                  <Box mr={3} borderBottom="solid 1px" w="120px" as="b">
                     <Link to="/list_create">リスト作成</Link>
                   </Box>
-                  <Box>
-                    {selectListId !== '' && (
+                  {selectListId !== '' && (
+                    <Box borderBottom="solid 1px" w="120px" as="b">
                       <Link
                         to={`list/${selectListId}/edit`}
                         state={{ selectTitle }}
                       >
                         リスト編集
                       </Link>
-                    )}
-                  </Box>
+                    </Box>
+                  )}
                 </Flex>
               </Box>
+
               <Box
                 w="100%"
                 h="30vh"
@@ -161,14 +170,26 @@ export const Counter = () => {
                 borderColor="gray"
               >
                 <Box mt={5}>
-                  <Text as="b">前回ボタンを押した時間</Text>
-                  <br />
-                  <Text as="samp">{timestamp}</Text>
+                  <Text>前回ボタンを押した時間</Text>
+                  <Text as="b">{timestamp}</Text>
                 </Box>
-                <Box mt={5}>
-                  <Text as="b">経過時間</Text>
-                  <br />
-                  <Text as="samp">{elapsedTime}</Text>
+                <Box mt={4} mb={5}>
+                  <Text>経過時間</Text>
+                  <Text as="b">{elapsedTime}</Text>
+                </Box>
+                <Box
+                  borderBottom="solid 1px"
+                  w="120px"
+                  m="0 auto"
+                  color="#1715ac"
+                  as="b"
+                >
+                  <Link
+                    to={`time_list/${selectListId}`}
+                    state={{ selectTitle }}
+                  >
+                    過去のキロク
+                  </Link>
                 </Box>
               </Box>
               <Button
@@ -183,9 +204,6 @@ export const Counter = () => {
               >
                 のんだ！
               </Button>
-              <Box mt={4}>
-                <Link to="/timeList">キロクを見る</Link>
-              </Box>
             </Box>
           ) : (
             <Navigate to="/login" />
