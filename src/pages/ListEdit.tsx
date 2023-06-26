@@ -25,7 +25,7 @@ export const ListEdit = () => {
 
   const login = token !== '';
   // console.log(id.listId);
-  console.log(title);
+  // console.log(title);
 
   const onEditList = async (data: any) => {
     await axios

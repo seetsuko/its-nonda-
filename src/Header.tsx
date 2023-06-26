@@ -22,7 +22,7 @@ export const Header = () => {
   };
 
   return (
-    <Box px={5} bgGradient="linear(to-r,#33c5b8,#566eea)" h="12vh" m={0}>
+    <Box px={5} bgGradient="linear(to-r,#56eacd,#566eea)" h="12vh" m={0}>
       {!loading && (
         <Container width="90vw">
           <Flex as="header" py="5" justifyContent="space-between" m="0px">

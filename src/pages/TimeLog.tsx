@@ -75,7 +75,9 @@ export const TimeLog = () => {
                 })}
               </Box>
               <Box mt={2}>
-              <Link to="/"><Button>戻る</Button></Link>
+                <Link to="/">
+                  <Button>戻る</Button>
+                </Link>
               </Box>
             </Box>
           ) : (

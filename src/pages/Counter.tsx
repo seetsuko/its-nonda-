@@ -13,26 +13,20 @@ type Artical = {
 };
 
 export const Counter = () => {
-  const { loading, token } = useContext(LoginStatusContext);
+  const { loading, token, uid } = useContext(LoginStatusContext);
   const [list, setList] = useState<Artical[]>([]);
-  const [selectListId, setSelectListId] = useState('');
+  const [selectListId, setSelectListId] = useState(undefined);
   const [selectTitle, setSelectTitle] = useState('');
   const [timestamp, setTimestamp] = useState('');
   const [elapsedTime, setElapsedTime] = useState('');
 
-  const login = token !== '';
-  // console.log(token);
-  console.log(list);
+  const login = (token !== '')&&(uid !== undefined);
+  const noListId = (selectListId === undefined)
 
   useEffect(() => {
     if (login) {
       axios
-        .get(`${url}/do_lists`, {
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${token}`,
-          },
-        })
+        .get(`${url}/users/${uid}/do_lists`)
         .then((res) => {
           setList(res.data);
           setSelectListId(res.data.at(0)?.id);
@@ -45,15 +39,9 @@ export const Counter = () => {
   }, [token]);
 
   useEffect(() => {
-    const fetch = async () => {
-      if (selectListId !== '') {
-        await axios
-          .get(`${url}/do_lists/${selectListId}/time_logs`, {
-            headers: {
-              'Content-Type': 'application/json',
-              authorization: `Bearer ${token}`,
-            },
-          })
+      if (!noListId) {
+        axios
+          .get(`${url}/do_lists/${selectListId}/time_logs`,)
           .then((res) => {
             // console.log(res.data)
             setTimestamp(res.data.at(-1)?.time);
@@ -62,8 +50,6 @@ export const Counter = () => {
             console.log(error);
           });
       }
-    };
-    fetch();
   }, [selectListId]);
 
   useEffect(() => {
@@ -110,7 +96,7 @@ export const Counter = () => {
 
   return (
     <Box>
-      {!loading && (
+      {!loading && (selectListId!=="") &&(
         <Box textAlign="center" p={50} bg="#fefefe" h="88vh">
           {login ? (
             <Box>
@@ -148,7 +134,7 @@ export const Counter = () => {
                   <Box mr={3} borderBottom="solid 1px" w="120px" as="b">
                     <Link to="/list_create">リスト作成</Link>
                   </Box>
-                  {selectListId !== '' && (
+                  {!noListId ? (
                     <Box borderBottom="solid 1px" w="120px" as="b">
                       <Link
                         to={`list/${selectListId}/edit`}
@@ -157,41 +143,53 @@ export const Counter = () => {
                         リスト編集
                       </Link>
                     </Box>
+                  ) : (
+                    <Box w="120px" as="b" color="#00000047">
+                      <Text>リスト編集</Text>
+                    </Box>
                   )}
                 </Flex>
               </Box>
 
               <Box
                 w="100%"
-                h="30vh"
+                h="33vh"
                 rounded={40}
                 p={4}
                 borderWidth="1px"
                 borderColor="gray"
               >
-                <Box mt={5}>
-                  <Text>前回ボタンを押した時間</Text>
-                  <Text as="b">{timestamp}</Text>
-                </Box>
-                <Box mt={4} mb={5}>
-                  <Text>経過時間</Text>
-                  <Text as="b">{elapsedTime}</Text>
-                </Box>
-                <Box
-                  borderBottom="solid 1px"
-                  w="120px"
-                  m="0 auto"
-                  color="#1715ac"
-                  as="b"
-                >
-                  <Link
-                    to={`time_list/${selectListId}`}
-                    state={{ selectTitle }}
-                  >
-                    過去のキロク
-                  </Link>
-                </Box>
+                {noListId ? (
+                  <Text as="b">リストを作成してください</Text>
+                ) : (
+                  <Box>
+                    <Box mt={3}>
+                      <Text>前回のキロクタイム</Text>
+
+                      <Text as="b" fontSize={"xl"}>{timestamp}</Text>
+                    </Box>
+                    <Box mt={4} mb={5}>
+                      <Text>経過時間</Text>
+                      <Text as="b">{elapsedTime}</Text>
+                    </Box>
+                    <Box
+                      borderBottom="solid 1px"
+                      w="120px"
+                      m="0 auto"
+                      color="#1715ac"
+                      as="b"
+                    >
+                      <Link
+                        to={`time_list/${selectListId}`}
+                        state={{ selectTitle }}
+                      >
+                        過去のキロク
+                      </Link>
+                    </Box>
+                  </Box>
+                )}
               </Box>
+              {!noListId &&(
               <Button
                 variant="solid"
                 fontSize={{ base: 'xl', lg: '3xl' }}
@@ -203,7 +201,7 @@ export const Counter = () => {
                 onClick={handleUpdateTimestamp}
               >
                 のんだ！
-              </Button>
+              </Button>)}
             </Box>
           ) : (
             <Navigate to="/login" />

@@ -7,7 +7,7 @@ import { LoginStatusContext } from '../App';
 import { url } from '../const';
 
 export const ListCreate = () => {
-  const { loading, token } = useContext(LoginStatusContext);
+  const { loading, token, uid } = useContext(LoginStatusContext);
   const navigate = useNavigate();
   const {
     register,
@@ -20,12 +20,7 @@ export const ListCreate = () => {
 
   const onCreateSubmit = async (data: any) => {
     await axios
-      .post(`${url}users/userid/do_lists`, data, {
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${token}`,
-        },
-      })
+      .post(`${url}/users/${uid}/do_lists`, data)
       .then((res) => {
         console.log('作成完了！');
         navigate('/');
