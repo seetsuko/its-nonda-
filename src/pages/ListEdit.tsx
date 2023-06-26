@@ -28,31 +28,17 @@ export const ListEdit = () => {
   // console.log(title);
 
   const onEditList = async (data: any) => {
-    await axios
-      .put(`${url}/do_lists/${id.listId}`, data, {
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        navigate('/');
-      });
+    await axios.put(`${url}/do_lists/${id.listId}`, data).then((res) => {
+      console.log(res);
+      navigate('/');
+    });
   };
 
   const onDeleteList = () => {
-    axios
-      .delete(`${url}/do_lists/${id.listId}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        console.log('削除完了');
-        navigate('/');
-      });
+    axios.delete(`${url}/do_lists/${id.listId}`).then((res) => {
+      console.log('削除完了');
+      navigate('/');
+    });
   };
 
   return (

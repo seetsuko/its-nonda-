@@ -19,12 +19,10 @@ export const ListCreate = () => {
   // console.log(token);
 
   const onCreateSubmit = async (data: any) => {
-    await axios
-      .post(`${url}/users/${uid}/do_lists`, data)
-      .then((res) => {
-        console.log('作成完了！');
-        navigate('/');
-      });
+    await axios.post(`${url}/users/${uid}/do_lists`, data).then((res) => {
+      console.log('作成完了！');
+      navigate('/');
+    });
   };
 
   return (

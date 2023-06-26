@@ -20,8 +20,8 @@ export const Counter = () => {
   const [timestamp, setTimestamp] = useState('');
   const [elapsedTime, setElapsedTime] = useState('');
 
-  const login = (token !== '')&&(uid !== undefined);
-  const noListId = (selectListId === undefined)
+  const login = token !== '' && uid !== undefined;
+  const noListId = selectListId === undefined;
 
   useEffect(() => {
     if (login) {
@@ -39,17 +39,17 @@ export const Counter = () => {
   }, [token]);
 
   useEffect(() => {
-      if (!noListId) {
-        axios
-          .get(`${url}/do_lists/${selectListId}/time_logs`,)
-          .then((res) => {
-            // console.log(res.data)
-            setTimestamp(res.data.at(-1)?.time);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
+    if (!noListId) {
+      axios
+        .get(`${url}/do_lists/${selectListId}/time_logs`)
+        .then((res) => {
+          // console.log(res.data)
+          setTimestamp(res.data.at(-1)?.time);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }, [selectListId]);
 
   useEffect(() => {
@@ -81,12 +81,7 @@ export const Counter = () => {
     const time = dayjs().format('YYYY/MM/DD HH:mm:ss');
     const data = { time: time };
     axios
-      .post(`${url}/do_lists/${selectListId}/time_logs`, data, {
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${token}`,
-        },
-      })
+      .post(`${url}/do_lists/${selectListId}/time_logs`, data)
       .then((res) => {
         setTimestamp(time);
         setElapsedTime('');
@@ -96,7 +91,7 @@ export const Counter = () => {
 
   return (
     <Box>
-      {!loading && (selectListId!=="") &&(
+      {!loading && selectListId !== '' && (
         <Box textAlign="center" p={50} bg="#fefefe" h="88vh">
           {login ? (
             <Box>
@@ -165,43 +160,53 @@ export const Counter = () => {
                   <Box>
                     <Box mt={3}>
                       <Text>前回のキロクタイム</Text>
-
-                      <Text as="b" fontSize={"xl"}>{timestamp}</Text>
+                      {timestamp === undefined ? (
+                        <Text as="b" fontSize={'xl'}>
+                          「キロク！」を押してね
+                        </Text>
+                      ) : (
+                        <Text as="b" fontSize={'xl'}>
+                          {timestamp}
+                        </Text>
+                      )}
                     </Box>
                     <Box mt={4} mb={5}>
                       <Text>経過時間</Text>
                       <Text as="b">{elapsedTime}</Text>
                     </Box>
-                    <Box
-                      borderBottom="solid 1px"
-                      w="120px"
-                      m="0 auto"
-                      color="#1715ac"
-                      as="b"
-                    >
-                      <Link
-                        to={`time_list/${selectListId}`}
-                        state={{ selectTitle }}
+                    {timestamp !== undefined && (
+                      <Box
+                        borderBottom="solid 1px"
+                        w="120px"
+                        m="0 auto"
+                        color="#1715ac"
+                        as="b"
                       >
-                        過去のキロク
-                      </Link>
-                    </Box>
+                        <Link
+                          to={`time_list/${selectListId}`}
+                          state={{ selectTitle }}
+                        >
+                          過去のキロク
+                        </Link>
+                      </Box>
+                    )}
                   </Box>
                 )}
               </Box>
-              {!noListId &&(
-              <Button
-                variant="solid"
-                fontSize={{ base: 'xl', lg: '3xl' }}
-                bgColor="#7bdbe6"
-                borderBottom="solid 5px #4d618d"
-                borderRadius="10px"
-                mt="24px"
-                size={{ base: 'lg' }}
-                onClick={handleUpdateTimestamp}
-              >
-                のんだ！
-              </Button>)}
+              {!noListId && (
+                <Button
+                  variant="solid"
+                  fontSize={{ base: 'xl', lg: '3xl' }}
+                  bgColor="#7bdbe6"
+                  borderBottom="solid 8px #4d618d"
+                  borderRadius="10px"
+                  mt="24px"
+                  size={{ base: 'lg' }}
+                  onClick={handleUpdateTimestamp}
+                >
+                  キロク！
+                </Button>
+              )}
             </Box>
           ) : (
             <Navigate to="/login" />

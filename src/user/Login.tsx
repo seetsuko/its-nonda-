@@ -45,7 +45,7 @@ export const Login = () => {
   return (
     <Box>
       {!loading && (
-        <Box>
+        <Box textAlign="center" p={50} bg="#fefefe" h="88vh">
           {login ? (
             <Navigate to="/" />
           ) : (
@@ -88,11 +88,18 @@ export const Login = () => {
                     )}
                   </Box>
                   <Box>
-                    <Button mt={4} colorScheme="teal" type="submit">
+                    <Button mt={4} mb={5} colorScheme="teal" type="submit">
                       ログイン
                     </Button>
                   </Box>
-                  <Link to="/register">新規登録はこちらから</Link>
+                  <Box
+                    borderBottom="solid 1px"
+                    w="120px"
+                    as="b"
+                    color="#3f13e0"
+                  >
+                    <Link to="/register">新規登録はこちらから</Link>
+                  </Box>
                 </form>
               </VStack>
             </Box>

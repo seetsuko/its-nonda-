@@ -25,12 +25,7 @@ export const TimeLog = () => {
   useEffect(() => {
     if (login) {
       axios
-        .get(`${url}/do_lists/${id.listId}/time_logs/`, {
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${token}`,
-          },
-        })
+        .get(`${url}/do_lists/${id.listId}/time_logs/`)
         .then((res) => {
           setDataLog(res.data);
         })
@@ -53,9 +48,6 @@ export const TimeLog = () => {
                   リスト： {title}
                 </Text>
               </Box>
-              <Box>
-                <Text>ボタンを押した時間の記録</Text>
-              </Box>
               <Box
                 w="100%"
                 h="50vh"
@@ -66,6 +58,9 @@ export const TimeLog = () => {
                 overflow="auto"
                 mt={5}
               >
+                <Box>
+                  <Text>ボタンを押した時間の記録</Text>
+                </Box>
                 {dataLog.map((data) => {
                   return (
                     <Box mt={2} key={data.id}>

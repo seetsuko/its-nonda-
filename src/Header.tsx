@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Heading, Box, Container, Flex, Button } from '@chakra-ui/react';
+import { Heading, Box, Container, Flex, Button, Text } from '@chakra-ui/react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from './FirebaseConfig';
@@ -27,8 +27,16 @@ export const Header = () => {
         <Container width="90vw">
           <Flex as="header" py="5" justifyContent="space-between" m="0px">
             <Link to="/">
-              <Heading as="h1" fontSize="2xl" cursor="pointer">
-                のんだ？
+              <Heading cursor="pointer">
+                <Text
+                  fontSize="3xl"
+                  sx={{
+                    textShadow:
+                      ' 3px 5px 6px #00000067, 0 0 1em #ffffff, 0 0 0.5em #fff',
+                  }}
+                >
+                  マイキロくん
+                </Text>
               </Heading>
             </Link>
             {login ? (
