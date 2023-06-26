@@ -35,10 +35,12 @@ export const ListEdit = () => {
   };
 
   const onDeleteList = () => {
+    if (window.confirm('削除しますか？')){
     axios.delete(`${url}/do_lists/${id.listId}`).then((res) => {
       console.log('削除完了');
       navigate('/');
     });
+  }
   };
 
   return (
