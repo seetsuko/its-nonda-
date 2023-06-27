@@ -20,11 +20,11 @@ export const Counter = () => {
   const [timestamp, setTimestamp] = useState('');
   const [elapsedTime, setElapsedTime] = useState('');
 
-  const login = token !== '' && uid !== undefined;
+  const login = (token !== '' )&& (uid !== undefined);
   const noListId = selectListId === undefined;
 
   useEffect(() => {
-    if (login) {
+    if (login && !noListId) {
       axios
         .get(`${url}/users/${uid}/do_lists`)
         .then((res) => {
@@ -43,7 +43,7 @@ export const Counter = () => {
       axios
         .get(`${url}/do_lists/${selectListId}/time_logs`)
         .then((res) => {
-          // console.log(res.data)
+          console.log(res.data)
           setTimestamp(res.data.at(-1)?.time);
         })
         .catch((error) => {
