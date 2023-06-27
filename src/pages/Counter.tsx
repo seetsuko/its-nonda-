@@ -24,7 +24,7 @@ export const Counter = () => {
   const noListId = selectListId === undefined;
 
   useEffect(() => {
-    if (login && !noListId) {
+    if (login && !Object.keys(list).length) {
       axios
         .get(`${url}/users/${uid}/do_lists`)
         .then((res) => {
