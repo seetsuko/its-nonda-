@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/myKirokun-app/static/css/main.b258c6c7.css",
+    "main.js": "/myKirokun-app/static/js/main.28cfd6c8.js",
+    "index.html": "/myKirokun-app/index.html",
+    "main.b258c6c7.css.map": "/myKirokun-app/static/css/main.b258c6c7.css.map",
+    "main.28cfd6c8.js.map": "/myKirokun-app/static/js/main.28cfd6c8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b258c6c7.css",
+    "static/js/main.28cfd6c8.js"
+  ]
+}
