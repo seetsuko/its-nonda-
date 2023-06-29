@@ -9,11 +9,13 @@ type LoginStatus = {
   token: string;
   uid: string | undefined;
   setToken: any;
+  setLoading:any
 };
 
 // ログイン状態をContextにする
 export const LoginStatusContext = createContext<LoginStatus>({
   loading: true,
+  setLoading:true,
   token: '',
   setToken: '',
   uid: '',
@@ -22,9 +24,10 @@ export const LoginStatusContext = createContext<LoginStatus>({
 const App = () => {
   const [token, setToken] = useState<string>('');
   const [uid, setUid] = useState<string>();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const value = {
     loading,
+    setLoading,
     token,
     setToken,
     uid,

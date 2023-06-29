@@ -9,7 +9,7 @@ import { url } from '../const';
 import { LoginStatusContext } from '../App';
 
 export const Login = () => {
-  const { loading, token } = useContext(LoginStatusContext);
+  const { loading, setLoading, token } = useContext(LoginStatusContext);
   const {
     register,
     handleSubmit,
@@ -17,8 +17,10 @@ export const Login = () => {
   } = useForm();
 
   const login = token !== '';
+  // console.log(loading)
 
   const onLoginSubmit = async (data: any) => {
+    setLoading(true)
     await signInWithEmailAndPassword(auth, data.email, data.password).catch(
       (err) => {
         alert('メールアドレスまたはパスワードが間違っています');
@@ -29,13 +31,14 @@ export const Login = () => {
     // 認証後Rails側にリクエストを送る
     const authData = getAuth();
     const currentUser = authData.currentUser;
-    // Firebase Authの認証
     if (authData && currentUser) {
       const tokenData = await currentUser.getIdToken(true);
       const config = { tokenData };
-      // Rails側にリクエストを送る
       try {
-        await axios.post(`${url}/auth/users`, config);
+        await axios.post(`${url}/auth/users`, config)
+        .then((res)=>
+        console.log(res)
+        )
       } catch (error) {
         console.log(error);
       }

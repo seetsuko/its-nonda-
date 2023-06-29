@@ -9,7 +9,7 @@ import { url } from '../const';
 import { LoginStatusContext } from '../App';
 
 export const Register = () => {
-  const { loading, token } = useContext(LoginStatusContext);
+  const { loading,setLoading, token } = useContext(LoginStatusContext);
   const {
     register,
     handleSubmit,
@@ -18,8 +18,10 @@ export const Register = () => {
 
   // ログインしているかどうかを判定する
   const login = token !== '';
+  // console.log(loading)
 
   const handleRegisterSubmit = async (data: any) => {
+    setLoading(true)
     await createUserWithEmailAndPassword(auth, data.email, data.password).catch(
       (err) => {
         alert('正しく入力してください');
