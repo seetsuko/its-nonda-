@@ -1,5 +1,5 @@
 {
-  "name": "nicoless-1",
+  "name": "my-kirokun",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -37,12 +37,13 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "cross-env PUBLIC_URL=/myKirokun-app react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .jsx,.js,.tsx,.ts src/",
     "fmt": "prettier --write src/**/*",
-    "server": "npx json-server --watch db.json --port 3100"
+    "server": "npx json-server --watch db.json --port 3100",
+    "deploy": "npm run build && gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -63,6 +64,7 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.8.0",
