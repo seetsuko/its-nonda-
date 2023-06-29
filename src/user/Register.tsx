@@ -1,5 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { FormLabel, Input, Button, VStack, Text, Box } from '@chakra-ui/react';
+import {
+  FormLabel,
+  Input,
+  Button,
+  VStack,
+  Text,
+  Box,
+  Spinner,
+} from '@chakra-ui/react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { Link, Navigate } from 'react-router-dom';
@@ -9,7 +17,7 @@ import { url } from '../const';
 import { LoginStatusContext } from '../App';
 
 export const Register = () => {
-  const { loading,setLoading, token } = useContext(LoginStatusContext);
+  const { loading, setLoading, token } = useContext(LoginStatusContext);
   const {
     register,
     handleSubmit,
@@ -21,7 +29,7 @@ export const Register = () => {
   // console.log(loading)
 
   const handleRegisterSubmit = async (data: any) => {
-    setLoading(true)
+    setLoading(true);
     await createUserWithEmailAndPassword(auth, data.email, data.password).catch(
       (err) => {
         alert('正しく入力してください');
@@ -47,7 +55,7 @@ export const Register = () => {
 
   return (
     <Box>
-      {!loading && (
+      {!loading ? (
         <Box textAlign="center" p={50} bg="#fefefe" h="88vh">
           {login ? (
             <Navigate to="/" />
@@ -107,6 +115,16 @@ export const Register = () => {
               </VStack>
             </Box>
           )}
+        </Box>
+      ) : (
+        <Box mt="36vh">
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
+          />
         </Box>
       )}
     </Box>

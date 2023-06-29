@@ -1,5 +1,13 @@
 import React, { useContext } from 'react';
-import { Box, Button, FormLabel, Input, Text, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  FormLabel,
+  Input,
+  Spinner,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -27,7 +35,7 @@ export const ListCreate = () => {
 
   return (
     <Box w="90vw">
-      {!loading && (
+      {!loading ? (
         <Box textAlign="center" p={50} bg="#fefefe" h="88vh">
           {login ? (
             <Box m={3} mb={8} textAlign="center">
@@ -62,6 +70,16 @@ export const ListCreate = () => {
           ) : (
             <Navigate to="/login" />
           )}
+        </Box>
+      ) : (
+        <Box mt="36vh">
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
+          />
         </Box>
       )}
     </Box>

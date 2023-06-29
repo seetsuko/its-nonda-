@@ -3,7 +3,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { Link, Navigate } from 'react-router-dom';
 import { Button } from '@chakra-ui/button';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Spinner, Text } from '@chakra-ui/react';
 import { url } from '../const';
 import { LoginStatusContext } from '../App';
 
@@ -20,7 +20,7 @@ export const Counter = () => {
   const [timestamp, setTimestamp] = useState('');
   const [elapsedTime, setElapsedTime] = useState('');
 
-  const login = (token !== '' )&& (uid !== undefined);
+  const login = token !== '' && uid !== undefined;
   const noListId = selectListId === undefined;
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export const Counter = () => {
       axios
         .get(`${url}/do_lists/${selectListId}/time_logs`)
         .then((res) => {
-          console.log(res.data)
+          console.log(res.data);
           setTimestamp(res.data.at(-1)?.time);
         })
         .catch((error) => {
@@ -91,7 +91,7 @@ export const Counter = () => {
 
   return (
     <Box>
-      {!loading && selectListId !== '' && (
+      {!loading && selectListId !== '' ? (
         <Box textAlign="center" p={50} bg="#fefefe" h="88vh">
           {login ? (
             <Box>
@@ -211,6 +211,16 @@ export const Counter = () => {
           ) : (
             <Navigate to="/login" />
           )}
+        </Box>
+      ) : (
+        <Box mt="36vh">
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
+          />
         </Box>
       )}
     </Box>

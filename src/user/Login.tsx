@@ -3,7 +3,15 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
-import { FormLabel, Input, Button, VStack, Text, Box } from '@chakra-ui/react';
+import {
+  FormLabel,
+  Input,
+  Button,
+  VStack,
+  Text,
+  Box,
+  Spinner,
+} from '@chakra-ui/react';
 import { auth } from '../FirebaseConfig';
 import { url } from '../const';
 import { LoginStatusContext } from '../App';
@@ -20,7 +28,7 @@ export const Login = () => {
   // console.log(loading)
 
   const onLoginSubmit = async (data: any) => {
-    setLoading(true)
+    setLoading(true);
     await signInWithEmailAndPassword(auth, data.email, data.password).catch(
       (err) => {
         alert('メールアドレスまたはパスワードが間違っています');
@@ -35,10 +43,9 @@ export const Login = () => {
       const tokenData = await currentUser.getIdToken(true);
       const config = { tokenData };
       try {
-        await axios.post(`${url}/auth/users`, config)
-        .then((res)=>
-        console.log(res)
-        )
+        await axios
+          .post(`${url}/auth/users`, config)
+          .then((res) => console.log(res));
       } catch (error) {
         console.log(error);
       }
@@ -47,7 +54,7 @@ export const Login = () => {
 
   return (
     <Box>
-      {!loading && (
+      {!loading ? (
         <Box textAlign="center" p={50} bg="#fefefe" h="88vh">
           {login ? (
             <Navigate to="/" />
@@ -107,6 +114,16 @@ export const Login = () => {
               </VStack>
             </Box>
           )}
+        </Box>
+      ) : (
+        <Box mt="36vh">
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
+          />
         </Box>
       )}
     </Box>

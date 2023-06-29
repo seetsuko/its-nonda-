@@ -9,13 +9,13 @@ type LoginStatus = {
   token: string;
   uid: string | undefined;
   setToken: any;
-  setLoading:any
+  setLoading: any;
 };
 
 // ログイン状態をContextにする
 export const LoginStatusContext = createContext<LoginStatus>({
   loading: true,
-  setLoading:true,
+  setLoading: true,
   token: '',
   setToken: '',
   uid: '',

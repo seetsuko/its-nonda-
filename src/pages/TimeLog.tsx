@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Box, Button, Text } from '@chakra-ui/react';
+import { Box, Button, Spinner, Text } from '@chakra-ui/react';
 import { Link, Navigate, useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { url } from '../const';
@@ -39,7 +39,7 @@ export const TimeLog = () => {
 
   return (
     <Box>
-      {!loading && (
+      {!loading ? (
         <Box textAlign="center" p={50} bg="#fefefe" h="88vh">
           {login ? (
             <Box m={3} mb={8} textAlign="center">
@@ -78,6 +78,16 @@ export const TimeLog = () => {
           ) : (
             <Navigate to="/login" />
           )}
+        </Box>
+      ) : (
+        <Box mt="36vh">
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
+          />
         </Box>
       )}
     </Box>
