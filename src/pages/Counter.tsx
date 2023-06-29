@@ -145,7 +145,6 @@ export const Counter = () => {
                   )}
                 </Flex>
               </Box>
-
               <Box
                 w="100%"
                 h="33vh"
