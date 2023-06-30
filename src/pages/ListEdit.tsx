@@ -36,7 +36,6 @@ export const ListEdit = () => {
   // console.log(title);
 
   const onEditList = async (data: any) => {
-    setLoading(true);
     await axios.put(`${url}/do_lists/${id.listId}`, data).then((res) => {
       console.log(res);
       navigate('/');
@@ -45,7 +44,6 @@ export const ListEdit = () => {
 
   const onDeleteList = () => {
     if (window.confirm('削除しますか？')) {
-      setLoading(true);
       axios.delete(`${url}/do_lists/${id.listId}`).then((res) => {
         console.log('削除完了');
         navigate('/');
