@@ -15,7 +15,7 @@ import { LoginStatusContext } from '../App';
 import { url } from '../const';
 
 export const ListCreate = () => {
-  const { loading, token, uid, setLoading } = useContext(LoginStatusContext);
+  const { loading, token, uid } = useContext(LoginStatusContext);
   const navigate = useNavigate();
   const {
     register,
@@ -27,7 +27,6 @@ export const ListCreate = () => {
   // console.log(token);
 
   const onCreateSubmit = async (data: any) => {
-    setLoading(true);
     await axios.post(`${url}/users/${uid}/do_lists`, data).then((res) => {
       console.log('作成完了！');
       navigate('/');

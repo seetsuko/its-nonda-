@@ -23,7 +23,7 @@ export const ListEdit = () => {
   const id = useParams();
   const { state } = useLocation();
   const title = state.selectTitle;
-  const { loading, token, setLoading } = useContext(LoginStatusContext);
+  const { loading, token } = useContext(LoginStatusContext);
   const navigate = useNavigate();
   const {
     register,
