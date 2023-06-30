@@ -23,7 +23,7 @@ export const ListEdit = () => {
   const id = useParams();
   const { state } = useLocation();
   const title = state.selectTitle;
-  const { loading, token } = useContext(LoginStatusContext);
+  const { loading, token, setLoading } = useContext(LoginStatusContext);
   const navigate = useNavigate();
   const {
     register,
@@ -36,6 +36,7 @@ export const ListEdit = () => {
   // console.log(title);
 
   const onEditList = async (data: any) => {
+    setLoading(true);
     await axios.put(`${url}/do_lists/${id.listId}`, data).then((res) => {
       console.log(res);
       navigate('/');
@@ -44,6 +45,7 @@ export const ListEdit = () => {
 
   const onDeleteList = () => {
     if (window.confirm('削除しますか？')) {
+      setLoading(true);
       axios.delete(`${url}/do_lists/${id.listId}`).then((res) => {
         console.log('削除完了');
         navigate('/');
