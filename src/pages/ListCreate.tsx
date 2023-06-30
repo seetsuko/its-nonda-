@@ -15,7 +15,7 @@ import { LoginStatusContext } from '../App';
 import { url } from '../const';
 
 export const ListCreate = () => {
-  const { loading, token, uid } = useContext(LoginStatusContext);
+  const { loading, token, uid, setLoading } = useContext(LoginStatusContext);
   const navigate = useNavigate();
   const {
     register,
