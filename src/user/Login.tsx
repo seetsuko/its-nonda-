@@ -11,6 +11,7 @@ import {
   Text,
   Box,
   Spinner,
+  Flex,
 } from '@chakra-ui/react';
 import { auth } from '../FirebaseConfig';
 import { url } from '../const';
@@ -36,7 +37,7 @@ export const Login = () => {
       }
     );
 
-    // 認証後Rails側にリクエストを送る
+    // 認証後バックエンドにリクエストを送る
     const authData = getAuth();
     const currentUser = authData.currentUser;
     if (authData && currentUser) {
@@ -50,6 +51,15 @@ export const Login = () => {
         console.log(error);
       }
     }
+  };
+
+  const handleGuestLogin = (e: any) => {
+    setLoading(true);
+    const data = { email: 'guest@email.com', password: 'guestlogin' };
+    signInWithEmailAndPassword(auth, data.email, data.password).catch((err) => {
+      alert('メールアドレスまたはパスワードが間違っています');
+      console.log(err);
+    });
   };
 
   return (
@@ -97,11 +107,28 @@ export const Login = () => {
                       <Text color="red.400">パスワードを入力してください</Text>
                     )}
                   </Box>
-                  <Box>
-                    <Button mt={4} mb={5} colorScheme="teal" type="submit">
-                      ログイン
-                    </Button>
-                  </Box>
+                  <VStack>
+                    <Flex>
+                      <Button
+                        mt={4}
+                        mb={5}
+                        mr={2}
+                        colorScheme="teal"
+                        type="submit"
+                      >
+                        ログイン
+                      </Button>
+                      <Button
+                        mt={4}
+                        mb={5}
+                        colorScheme="teal"
+                        type="button"
+                        onClick={(e) => handleGuestLogin(e)}
+                      >
+                        ゲストログイン
+                      </Button>
+                    </Flex>
+                  </VStack>
                   <Box
                     borderBottom="solid 1px"
                     w="120px"
