@@ -59,7 +59,7 @@ export const TimeLog = () => {
                 mt={5}
               >
                 <Box>
-                  <Text>ボタンを押した時間の記録</Text>
+                  <Text>キロク！の記録</Text>
                 </Box>
                 {dataLog.map((data) => {
                   return (
