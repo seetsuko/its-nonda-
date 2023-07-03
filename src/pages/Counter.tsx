@@ -92,34 +92,28 @@ export const Counter = () => {
   return (
     <Box>
       {!loading && selectListId !== '' ? (
-        <Box textAlign="center" p={50} bg="#fefefe" h="88vh">
+        <Box textAlign="center" p={30} bg="#fefefe" h="88vh">
           {login ? (
             <Box>
               <Box m={3} mb={8} textAlign="center">
                 <Text mb={4} fontSize="xl">
                   リスト一覧
                 </Text>
-                <ul className="list-tab" role="tablist" aria-label="リスト一覧">
                   {list.map((data) => {
                     const isActive = data.id === selectListId;
                     return (
-                      <li
-                        tabIndex={0}
-                        role="tab"
+                      <Button
+                        size="sm"
+                        mr={2}
+                        mb={2}
                         key={data.id}
-                        className={`list-tab-item ${isActive ? 'active' : ''}`}
+                        bgColor={`${isActive ? '#a2f7df' : ''}`}
                         onClick={() => handleSelectList(data)}
-                        onKeyDown={(event) => {
-                          if (event.key === 'Enter') {
-                            handleSelectList(data);
-                          }
-                        }}
                       >
                         {data.title}
-                      </li>
+                      </Button>
                     );
                   })}
-                </ul>
                 <Flex
                   w="200px"
                   justifyContent="space-between"
