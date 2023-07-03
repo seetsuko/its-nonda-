@@ -24,7 +24,7 @@ export const Counter = () => {
   const noListId = selectListId === undefined;
 
   useEffect(() => {
-    if (login && !Object.keys(list).length) {
+    if (login ) {
       axios
         .get(`${url}/users/${uid}/do_lists`)
         .then((res) => {
@@ -68,7 +68,6 @@ export const Counter = () => {
     }
   }, [timestamp]);
 
-  // リストを選んだらidとtitleのstateへセットする
   const handleSelectList = (data: any) => {
     // console.log(data.id);
     // console.log(data.title);

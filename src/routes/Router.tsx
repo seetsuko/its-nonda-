@@ -8,7 +8,6 @@ import { Counter } from '../pages/Counter';
 import { TimeLog } from '../pages/TimeLog';
 import { ListCreate } from '../pages/ListCreate';
 import { ListEdit } from '../pages/ListEdit';
-import { TimeEdit } from '../pages/TimeEdit';
 
 export const Router = () => {
   return (
@@ -21,7 +20,6 @@ export const Router = () => {
         <Route path="/time_list/:listId" element={<TimeLog />} />
         <Route path="/list_create" element={<ListCreate />} />
         <Route path="/list/:listId/edit" element={<ListEdit />} />
-        <Route path="/list/:listId/logid/edit" element={<TimeEdit />} />
       </Routes>
     </Box>
   );
