@@ -16,6 +16,7 @@ export const TimeLog = () => {
   const title = state.selectTitle;
   const { loading, token } = useContext(LoginStatusContext);
   const [dataLog, setDataLog] = useState<Artical[]>([]);
+  const [editMode, setEditMode] = useState(false);
 
   const login = token !== '';
   // console.log(token);
@@ -61,15 +62,32 @@ export const TimeLog = () => {
                 <Box>
                   <Text>キロク！の記録</Text>
                 </Box>
-                {dataLog.map((data) => {
-                  return (
-                    <Box mt={2} key={data.id}>
-                      <Text as="b">{data.time}</Text> <br />
-                    </Box>
-                  );
-                })}
+                {editMode
+                  ? dataLog.map((data) => {
+                      return (
+                        <Link to="/" key={data.id}>
+                          <Box mt={2.5} borderBottom="1px" borderColor="gray.300">
+                            <Text as="b">{data.time}</Text>
+                          </Box>
+                        </Link>
+                      );
+                    })
+                  : dataLog.map((data) => {
+                      return (
+                        <Box mt={3} key={data.id}>
+                          <Text as="b">{data.time}</Text>
+                        </Box>
+                      );
+                    })}
               </Box>
               <Box mt={2}>
+              {editMode?
+                <Button mr={2} colorScheme="teal" onClick={()=>setEditMode(false)}>
+                  編集中止
+                </Button> :
+                  <Button mr={2} colorScheme="teal" onClick={()=>setEditMode(true)}>
+                  編集する
+                </Button>}
                 <Link to="/">
                   <Button>戻る</Button>
                 </Link>

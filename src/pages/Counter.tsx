@@ -99,21 +99,21 @@ export const Counter = () => {
                 <Text mb={4} fontSize="xl">
                   リスト一覧
                 </Text>
-                  {list.map((data) => {
-                    const isActive = data.id === selectListId;
-                    return (
-                      <Button
-                        size="sm"
-                        mr={2}
-                        mb={2}
-                        key={data.id}
-                        bgColor={`${isActive ? '#a2f7df' : ''}`}
-                        onClick={() => handleSelectList(data)}
-                      >
-                        {data.title}
-                      </Button>
-                    );
-                  })}
+                {list.map((data) => {
+                  const isActive = data.id === selectListId;
+                  return (
+                    <Button
+                      size="sm"
+                      mr={2}
+                      mb={2}
+                      key={data.id}
+                      bgColor={`${isActive ? '#a2f7df' : ''}`}
+                      onClick={() => handleSelectList(data)}
+                    >
+                      {data.title}
+                    </Button>
+                  );
+                })}
                 <Flex
                   w="200px"
                   justifyContent="space-between"
