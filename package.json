@@ -39,6 +39,7 @@
     "zod": "^3.21.4"
   },
   "scripts": {
+    "dev": "next dev",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
