@@ -1,11 +1,15 @@
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
+import { initializeFirebaseApp } from '@/src/lib/firebase/firebase'
 
-export default function App({ Component, pageProps }: AppProps) {
+initializeFirebaseApp()
+function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
       <Component {...pageProps} />
     </ChakraProvider>
   );
 }
+
+export default App

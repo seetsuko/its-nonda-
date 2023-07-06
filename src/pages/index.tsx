@@ -13,7 +13,7 @@ type Artical = {
 
 const inter = Inter({ subsets: ['latin'] });
 
-export default function Home() {
+const Page = () => {
   // const { loading, token, uid } = useContext(LoginStatusContext);
 
   const [list, setList] = useState<Artical[]>([]);
@@ -72,3 +72,5 @@ export default function Home() {
     </>
   );
 }
+
+export default Page
