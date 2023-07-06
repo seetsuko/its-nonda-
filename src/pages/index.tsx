@@ -17,16 +17,15 @@ type Artical = {
 const inter = Inter({ subsets: ['latin'] });
 
 const Page = () => {
-  // const { loading, token, uid } = useContext(LoginStatusContext);
   const [list, setList] = useState<Artical[]>([]);
-  const [selectListId, setSelectListId] = useState(undefined);
-  const [selectTitle, setSelectTitle] = useState('');
+  const [selectListData, setSelectListData] = useState('');
+  const [selectListId, setSelectListId] = useState('');
   const [timestamp, setTimestamp] = useState('');
   const [elapsedTime, setElapsedTime] = useState('');
   const { userDetails } = useAuthContext();
 
-  const noListId = selectListId === undefined;
-  // console.log(userDetails?.uid)
+  const noSelectList = selectListId === undefined;
+  console.log(userDetails?.uid)
 
   useEffect(() => {
     if (userDetails !== undefined) {
@@ -36,7 +35,6 @@ const Page = () => {
         .then((res) => {
           setList(res.data);
           setSelectListId(res.data.at(0)?.id);
-          setSelectTitle(res.data.at(0)?.title);
         })
         .catch((error) => {
           console.log(error);
@@ -45,7 +43,7 @@ const Page = () => {
   }, [userDetails]);
 
   useEffect(() => {
-    if (!noListId) {
+    if (!noSelectList) {
       axios
         .get(`${url}/do_lists/${selectListId}/time_logs`)
         .then((res) => {
@@ -77,7 +75,7 @@ const Page = () => {
     // console.log(data.id);
     // console.log(data.title);
     setSelectListId(data.id);
-    setSelectTitle(data.title);
+    setSelectListData(data)
     setElapsedTime('');
   };
 
@@ -134,12 +132,12 @@ const Page = () => {
                 <Box mr={3} borderBottom="solid 1px" w="120px" as="b">
                   <Link href="/list_create">リスト作成</Link>
                 </Box>
-                {!noListId ? (
+                {!noSelectList ? (
                   <Box borderBottom="solid 1px" w="120px" as="b">
                     <Link
                       href={{
                         pathname: `list/${selectListId}/edit`,
-                        query: selectTitle,
+                        query: selectListData,
                       }}
                     >
                       リスト編集
@@ -161,7 +159,7 @@ const Page = () => {
               borderWidth="1px"
               borderColor="gray"
             >
-              {noListId ? (
+              {noSelectList ? (
                 <Text as="b">リストを作成してください</Text>
               ) : (
                 <Box>
@@ -191,8 +189,8 @@ const Page = () => {
                     >
                       <Link
                         href={{
-                          pathname: `time_list/${selectListId}`,
-                          query: selectTitle,
+                          pathname: `record/${selectListId}`,
+                          query: selectListData,
                         }}
                       >
                         過去のキロク
@@ -202,7 +200,7 @@ const Page = () => {
                 </Box>
               )}
             </Box>
-            {!noListId && (
+            {!noSelectList && (
               <Button
                 variant="solid"
                 fontSize={{ base: 'xl', lg: '3xl' }}
