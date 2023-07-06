@@ -1,10 +1,12 @@
-import Head from 'next/head';
-import { Inter } from 'next/font/google';
-import { Box, Flex, Text } from '@chakra-ui/react';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import axios from 'axios';
-import { url } from '../const';
+import { Inter } from 'next/font/google';
+import Head from 'next/head';
+import Link from 'next/link';
+import { AuthGuard } from '../feature/auth/component/AuthGuard.tsx/AuthGuard';
+import { useAuthContext } from '../feature/auth/provider/AuthProvider';
+import { url } from '../lib/api/const';
 
 type Artical = {
   id: string;
@@ -21,6 +23,7 @@ const Page = () => {
   const [selectTitle, setSelectTitle] = useState('');
   const [timestamp, setTimestamp] = useState('');
   const [elapsedTime, setElapsedTime] = useState('');
+  const { userDetails } = useAuthContext();
 
   // const login = token !== '' && uid !== undefined;
   const noListId = selectListId === undefined;
@@ -50,27 +53,31 @@ const Page = () => {
       </Head>
 
       <main>
-        <Box textAlign="center" p={30} bg="#fefefe" h="88vh">
-          <Box m={3} mb={8} textAlign="center">
-            <Text mb={4} fontSize="xl">
-              リスト一覧
-            </Text>
-          </Box>
+        <AuthGuard>
+          {userDetails && (
+            <Box textAlign="center" p={30} bg="#fefefe" h="88vh">
+              <Box m={3} mb={8} textAlign="center">
+                <Text mb={4} fontSize="xl">
+                  リスト一覧
+                </Text>
+              </Box>
 
-          <Flex
-            w="200px"
-            justifyContent="space-between"
-            m="20px auto"
-            color="#1715ac"
-          >
-            <Box mr={3} borderBottom="solid 1px" w="120px" as="b">
-              <Link href="/">リスト作成</Link>
+              <Flex
+                w="200px"
+                justifyContent="space-between"
+                m="20px auto"
+                color="#1715ac"
+              >
+                <Box mr={3} borderBottom="solid 1px" w="120px" as="b">
+                  <Link href="/">リスト作成</Link>
+                </Box>
+              </Flex>
             </Box>
-          </Flex>
-        </Box>
+          )}
+        </AuthGuard>
       </main>
     </>
   );
-}
+};
 
-export default Page
+export default Page;

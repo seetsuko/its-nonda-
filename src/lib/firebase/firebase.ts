@@ -1,4 +1,5 @@
-import { getApp, getApps, initializeApp } from 'firebase/app'
+import { getApp, getApps, initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 import {
   FIREBASE_API_KEY,
   FIREBASE_APP_ID,
@@ -6,7 +7,7 @@ import {
   FIREBASE_MESSAGING_SENDER_ID,
   FIREBASE_PROJECT_ID,
   FIREBASE_STORAGE_BUCKET,
-} from '@/src/constant/env'
+} from '@/src/constant/env';
 
 const firebaseConfig = {
   apiKey: FIREBASE_API_KEY,
@@ -19,5 +20,5 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const initializeFirebaseApp = () =>
-  !getApps().length ? initializeApp(firebaseConfig) : getApp()
-
+  !getApps().length ? initializeApp(firebaseConfig) : getApp();
+export const auth = getAuth(app);

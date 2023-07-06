@@ -4,6 +4,7 @@
         "es2021": true
     },
     "extends": [
+      "eslint:recommended",
         "next/core-web-vitals",
         "plugin:react/recommended",
         "airbnb",
@@ -23,7 +24,8 @@
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "import"
     ],
     "rules": {
         "import/prefer-default-export": "off", // named exportがエラーになるので使えるようにoff
@@ -50,6 +52,56 @@
             "extensions": [".jsx", ".tsx"]
           }
         ],
+        "import/order":  [
+          "error",
+          {
+            // グループごとの並び順
+            "groups": [
+              "builtin",  // 1. fsや path などの node "builtin" のモジュール
+              "external",  // 2. npm install したパッケージ
+              "internal", // 3. webpack などでパス設定したモジュール
+              ["parent", "sibling"], // 4. 親階層と小階層のファイル
+              "object",  // object"-imports
+              "type",  // 型だけをインポートする type imports
+              "index" // 同階層のファイル
+            ],
+            // グループごとに改行を入れる
+            "newlines-between": "never", // "never" を指定すると改行なし
+            // FIXME: ちょっとよく分かってない
+            // This defines import types that are not handled by configured pathGroups. This is mostly needed when you want to handle path groups that look like external imports.
+            "pathGroupsExcludedImportTypes": ["builtin"],
+            // アルファベット順・大文字小文字を区別しない
+            "alphabetize": { "order": "asc", "caseInsensitive": true },
+            // パターンマッチしたものをグループにする
+            // "newlines-between": "always" の場合は pathGroups  ごとに空行が入る
+            "pathGroups": [
+              // react 関連を external より前にする
+              // "pathGroupsExcludedImportTypes": ["react"], にしてみたが `react`, `react-dom` などが別グループになってしまったので pattern で無理やり同じグループにした
+              {
+                "pattern": "react**",
+                "group": "external",
+                "position": "before"
+              },
+              // `@/app`, `@/features/`, `@/libs` の import をひとグループにして internal の前に
+              {
+                "pattern": "{@/app/**,@/features/**,@/libs/**}",
+                "group": "internal",
+                "position": "before"
+              },
+              // `@/components`, `@/pages` の import をグルーピング
+              {
+                "pattern": "{@/components/**,@/pages/**}",
+                "group": "internal",
+                "position": "before"
+              },
+              // CSS module を一番最後に
+              {
+                "pattern": "./**.module.css",
+                "group": "index",
+                "position": "after"
+              }
+            ]
+          }],
 				"arrow-body-style": "off",
         "@typescript-eslint/no-unused-vars": "off",
         "no-console": "off",
@@ -70,7 +122,10 @@
         "import/no-self-import":"off",
         "no-restricted-globals":"off",
         "react/jsx-curly-brace-presence":"off",
-        "jsx-a11y/anchor-is-valid":"off"
+        "jsx-a11y/anchor-is-valid":"off",
+        "react/react-in-jsx-scope":"off",
+        "react/jsx-no-useless-fragment":"off",
+        "react-hooks/exhaustive-deps":"off"
       },
       "settings": {
         "import/resolver": { //importするファイルをjsだけではなく、tsを含むファイルを許可する
