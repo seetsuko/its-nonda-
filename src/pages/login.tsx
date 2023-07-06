@@ -149,7 +149,7 @@ const Login = () => {
           {/* )} */}
         </Box>
       ) : (
-        <Box mt="36vh">
+        <Box mt="36vh" textAlign="center">
           <Spinner
             thickness="4px"
             speed="0.65s"
