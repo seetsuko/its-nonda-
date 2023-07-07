@@ -4,7 +4,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { AuthGuard } from '@/src/feature/auth/component/AuthGuard.tsx/AuthGuard';
-import { url } from '@/src/lib/api/const';
+import { url } from '@/src/lib/apiPath/const';
 import type { NextPage } from 'next';
 
 type Artical = {
@@ -16,13 +16,13 @@ const Record: NextPage = () => {
   const router = useRouter();
   const { listId } = router.query;
   const listTitle = router.query.title;
-  const [timeRecords,setTimeRecords]= useState<Artical[]>([]);
+  const [timeRecords, setTimeRecords] = useState<Artical[]>([]);
 
   // console.log(listId);
   // console.log(listTitle);
 
   useEffect(() => {
-    if(listId!==undefined)
+    if (listId !== undefined)
       axios
         .get(`${url}/do_lists/${listId}/time_logs/`)
         .then((res) => {
@@ -31,7 +31,7 @@ const Record: NextPage = () => {
         .catch((error) => {
           console.log(error);
         });
-  },[listId]);
+  }, [listId]);
 
   return (
     <AuthGuard>
@@ -66,14 +66,13 @@ const Record: NextPage = () => {
                   );
                 })
               :  */}
-              {timeRecords.map((data) => {
-                  return (
-                    <Box mt={3} key={data.id}>
-                      <Text as="b">{data.time}</Text>
-                    </Box>
-                  );
-                })
-              }
+            {timeRecords.map((data) => {
+              return (
+                <Box mt={3} key={data.id}>
+                  <Text as="b">{data.time}</Text>
+                </Box>
+              );
+            })}
           </Box>
           <Box mt={2}>
             {/* {editMode ? (
@@ -85,7 +84,7 @@ const Record: NextPage = () => {
                 編集中止
               </Button>
             ) : ( */}
-              {/* <Button
+            {/* <Button
                 mr={2}
                 colorScheme="teal"
                 onClick={() => setEditMode(true)}

@@ -7,7 +7,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { AuthGuard } from '../feature/auth/component/AuthGuard.tsx/AuthGuard';
 import { useAuthContext } from '../feature/auth/provider/AuthProvider';
-import { url } from '../lib/api/const';
+import { url } from '../lib/apiPath/const';
 
 type Artical = {
   id: string;
@@ -35,7 +35,7 @@ const Page = () => {
         .get(`${url}/users/${userId}/do_lists`)
         .then((res) => {
           setList(res.data);
-          setSelectListData(res.data.at(0))
+          setSelectListData(res.data.at(0));
           setSelectListId(res.data.at(0)?.id);
         })
         .catch((error) => {
@@ -132,7 +132,7 @@ const Page = () => {
                 color="#1715ac"
               >
                 <Box mr={3} borderBottom="solid 1px" w="120px" as="b">
-                  <Link href="/list_create">リスト作成</Link>
+                  <Link href="/listCreate">リスト作成</Link>
                 </Box>
                 {!noSelectList ? (
                   <Box borderBottom="solid 1px" w="120px" as="b">

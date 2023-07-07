@@ -14,7 +14,7 @@ import axios from 'axios';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { url } from '@/src/lib/api/const';
+import { url } from '@/src/lib/apiPath/const';
 import { auth } from '@/src/lib/firebase/firebase';
 import { useAuthContext } from '../feature/auth/provider/AuthProvider';
 
