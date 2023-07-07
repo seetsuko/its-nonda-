@@ -35,6 +35,7 @@ const Page = () => {
         .get(`${url}/users/${userId}/do_lists`)
         .then((res) => {
           setList(res.data);
+          setSelectListData(res.data.at(0))
           setSelectListId(res.data.at(0)?.id);
         })
         .catch((error) => {
