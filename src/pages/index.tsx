@@ -25,12 +25,12 @@ const Page = () => {
   const { userDetails } = useAuthContext();
 
   const noSelectList = selectListId === undefined;
-  // console.log(userDetails?.uid);
+  // console.log(userDetails);
   // console.log(selectListId)
 
   useEffect(() => {
-    if (userDetails !== undefined) {
-      const userId = userDetails?.uid;
+    const userId = userDetails?.uid;
+    if (userId !== undefined) {
       axios
         .get(`${url}/users/${userId}/do_lists`)
         .then((res) => {
