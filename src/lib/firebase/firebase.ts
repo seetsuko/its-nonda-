@@ -9,7 +9,7 @@ import {
   FIREBASE_STORAGE_BUCKET,
 } from '@/src/constant/env';
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: FIREBASE_API_KEY,
   authDomain: FIREBASE_AUTH_DOMAIN,
   projectId: FIREBASE_PROJECT_ID,
