@@ -46,7 +46,7 @@ const Register = () => {
       )
       .catch((err) => {
         toast({
-          title: 'エラーが発生しました。',
+          title: 'エラーが発生しました。5秒後に画面が変わります',
           status: 'error',
           position: 'top',
         });
@@ -130,7 +130,6 @@ const Register = () => {
             color="blue.500"
             size="xl"
           />
-          <Text>5秒後に画面が変わります。</Text>
         </Box>
       )}
     </Box>
