@@ -1,17 +1,37 @@
+import { useEffect, useState } from 'react';
 import { Box, Button, Text } from '@chakra-ui/react';
+import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { AuthGuard } from '@/src/feature/auth/component/AuthGuard.tsx/AuthGuard';
+import { url } from '@/src/lib/api/const';
 import type { NextPage } from 'next';
 
+type Artical = {
+  id: string;
+  time: string;
+};
+
 const Record: NextPage = () => {
-  // パラメータはクエリオブジェクトとしてページに渡されます
   const router = useRouter();
   const { listId } = router.query;
   const listTitle = router.query.title;
+  const [timeRecords,setTimeRecords]= useState<Artical[]>([]);
 
-  console.log(listId);
-  console.log(listTitle);
+  // console.log(listId);
+  // console.log(listTitle);
+
+  useEffect(() => {
+    if(listId!==undefined)
+      axios
+        .get(`${url}/do_lists/${listId}/time_logs/`)
+        .then((res) => {
+          setTimeRecords(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  },[listId]);
 
   return (
     <AuthGuard>
@@ -35,7 +55,7 @@ const Record: NextPage = () => {
             <Box>
               <Text>キロク！の記録</Text>
             </Box>
-            {editMode
+            {/* {editMode
               ? dataLog.map((data) => {
                   return (
                     <Link href="/" key={data.id}>
@@ -45,16 +65,18 @@ const Record: NextPage = () => {
                     </Link>
                   );
                 })
-              : dataLog.map((data) => {
+              :  */}
+              {timeRecords.map((data) => {
                   return (
                     <Box mt={3} key={data.id}>
                       <Text as="b">{data.time}</Text>
                     </Box>
                   );
-                })}
+                })
+              }
           </Box>
           <Box mt={2}>
-            {editMode ? (
+            {/* {editMode ? (
               <Button
                 mr={2}
                 colorScheme="teal"
@@ -62,15 +84,15 @@ const Record: NextPage = () => {
               >
                 編集中止
               </Button>
-            ) : (
-              <Button
+            ) : ( */}
+              {/* <Button
                 mr={2}
                 colorScheme="teal"
                 onClick={() => setEditMode(true)}
               >
                 編集する
-              </Button>
-            )}
+              </Button> */}
+            {/* )} */}
             <Link href="/">
               <Button>戻る</Button>
             </Link>
