@@ -37,6 +37,7 @@ const Login = () => {
   }, [userDetails]);
 
   const onLoginSubmit = async (data: any) => {
+    setLoading(true);
     await signInWithEmailAndPassword(auth, data.email, data.password)
       .then(() =>
         toast({
