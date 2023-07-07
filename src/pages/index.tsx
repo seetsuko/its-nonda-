@@ -138,7 +138,7 @@ const Page = () => {
                   <Box borderBottom="solid 1px" w="120px" as="b">
                     <Link
                       href={{
-                        pathname: `list/${selectListId}/edit`,
+                        pathname: `listEdit/${selectListId}`,
                         query: selectListData,
                       }}
                     >
@@ -217,17 +217,6 @@ const Page = () => {
               </Button>
             )}
           </Box>
-
-          <Flex
-            w="200px"
-            justifyContent="space-between"
-            m="20px auto"
-            color="#1715ac"
-          >
-            <Box mr={3} borderBottom="solid 1px" w="120px" as="b">
-              <Link href="/">リスト作成</Link>
-            </Box>
-          </Flex>
         </AuthGuard>
       </main>
     </>
