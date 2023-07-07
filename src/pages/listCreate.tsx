@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Box, Button, FormLabel, Input, Text, VStack } from '@chakra-ui/react';
 import axios from 'axios';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { url } from '@/src/lib/apiPath/const';
 import { AuthGuard } from '../feature/auth/component/AuthGuard.tsx/AuthGuard';
@@ -54,6 +55,9 @@ const ListCreate = () => {
             </form>
           </VStack>
         </Box>
+        <Link href="/">
+          <Button>戻る</Button>
+        </Link>
       </Box>
     </AuthGuard>
   );

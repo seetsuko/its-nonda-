@@ -82,6 +82,9 @@ const ListEdit: NextPage = () => {
             </Box>
           </VStack>
         </Box>
+        <Link href="/">
+          <Button>戻る</Button>
+        </Link>
       </Box>
     </AuthGuard>
   );
