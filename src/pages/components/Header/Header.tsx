@@ -11,9 +11,9 @@ import { signOut } from 'firebase/auth';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useAuthContext } from '@/src/feature/auth/provider/AuthProvider';
-import { auth } from '@/src/lib/firebase/firebase';
+import auth from '@/src/lib/firebase/firebase';
 
-export const Header = () => {
+const Header = () => {
   const { userDetails } = useAuthContext();
   const toast = useToast();
   const router = useRouter();
@@ -63,3 +63,5 @@ export const Header = () => {
     </Box>
   );
 };
+
+export default Header;

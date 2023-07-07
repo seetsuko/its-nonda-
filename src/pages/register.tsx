@@ -15,7 +15,7 @@ import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { url } from '@/src/lib/apiPath/const';
-import { auth } from '@/src/lib/firebase/firebase';
+import auth from '@/src/lib/firebase/firebase';
 import { useAuthContext } from '../feature/auth/provider/AuthProvider';
 
 const Register = () => {
@@ -51,7 +51,7 @@ const Register = () => {
           position: 'top',
         });
         console.log(err);
-        setTimeout(()=>router.push("/"),5000)
+        setTimeout(() => router.push('/'), 5000);
       });
 
     // バックエンドに認証リクエストを送る

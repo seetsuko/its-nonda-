@@ -6,7 +6,7 @@ import {
   useState,
 } from 'react';
 import { onAuthStateChanged } from '@firebase/auth';
-import { auth } from '@/src/lib/firebase/firebase';
+import auth from '@/src/lib/firebase/firebase';
 import type { User } from '@firebase/auth';
 
 export type GlobalAuthState = {
