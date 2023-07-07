@@ -51,6 +51,7 @@ const Register = () => {
           position: 'top',
         });
         console.log(err);
+        setTimeout(()=>router.push("/"),5000)
       });
 
     // バックエンドに認証リクエストを送る
@@ -83,6 +84,7 @@ const Register = () => {
                     メールアドレス
                     <Input
                       id="email"
+                      type="email"
                       placeholder="メールアドレスを入力"
                       {...register('email', { required: true })}
                     />
@@ -128,6 +130,7 @@ const Register = () => {
             color="blue.500"
             size="xl"
           />
+          <Text>5秒後に画面が変わります。</Text>
         </Box>
       )}
     </Box>
