@@ -20,6 +20,7 @@
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0",
     "dayjs": "^1.11.7",
+    "eslint-config-next": "^13.4.9",
     "firebase": "^9.23.0",
     "framer-motion": "^10.12.12",
     "gh-pages": "^5.0.0",
