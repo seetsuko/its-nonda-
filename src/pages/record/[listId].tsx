@@ -13,11 +13,11 @@ type Artical = {
 };
 
 const Record: NextPage = () => {
+  const [timeRecords, setTimeRecords] = useState<Artical[]>([]);
   const router = useRouter();
+
   const { listId } = router.query;
   const listTitle = router.query.title;
-  const [timeRecords, setTimeRecords] = useState<Artical[]>([]);
-
   // console.log(listId);
   // console.log(listTitle);
 
@@ -55,17 +55,6 @@ const Record: NextPage = () => {
             <Box>
               <Text>キロク！の記録</Text>
             </Box>
-            {/* {editMode
-              ? dataLog.map((data) => {
-                  return (
-                    <Link href="/" key={data.id}>
-                      <Box mt={2.5} borderBottom="1px" borderColor="gray.300">
-                        <Text as="b">{data.time}</Text>
-                      </Box>
-                    </Link>
-                  );
-                })
-              :  */}
             {timeRecords.map((data) => {
               return (
                 <Box mt={3} key={data.id}>
@@ -75,23 +64,6 @@ const Record: NextPage = () => {
             })}
           </Box>
           <Box mt={2}>
-            {/* {editMode ? (
-              <Button
-                mr={2}
-                colorScheme="teal"
-                onClick={() => setEditMode(false)}
-              >
-                編集中止
-              </Button>
-            ) : ( */}
-            {/* <Button
-                mr={2}
-                colorScheme="teal"
-                onClick={() => setEditMode(true)}
-              >
-                編集する
-              </Button> */}
-            {/* )} */}
             <Link href="/">
               <Button>戻る</Button>
             </Link>

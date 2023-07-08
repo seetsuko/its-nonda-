@@ -8,11 +8,6 @@ import { AuthGuard } from '@/src/feature/auth/component/AuthGuard.tsx/AuthGuard'
 import { url } from '@/src/lib/apiPath/const';
 import type { NextPage } from 'next';
 
-type Artical = {
-  id: string;
-  time: string;
-};
-
 const ListEdit: NextPage = () => {
   const {
     register,
@@ -20,10 +15,9 @@ const ListEdit: NextPage = () => {
     formState: { errors },
   } = useForm();
   const router = useRouter();
+
   const { listId } = router.query;
   const listTitle = router.query.title;
-  const [timeRecords, setTimeRecords] = useState<Artical[]>([]);
-
   // console.log(listId);
   // console.log(listTitle);
 

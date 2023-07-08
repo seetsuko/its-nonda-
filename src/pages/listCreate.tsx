@@ -16,7 +16,6 @@ const ListCreate = () => {
   } = useForm();
   const router = useRouter();
   const { userDetails } = useAuthContext();
-
   // console.log(userDetails);
 
   const onCreateSubmit = async (data: any) => {

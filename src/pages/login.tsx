@@ -20,6 +20,7 @@ import auth from '@/src/lib/firebase/firebase';
 import { useAuthContext } from '../feature/auth/provider/AuthProvider';
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -28,7 +29,6 @@ const Login = () => {
   const toast = useToast();
   const router = useRouter();
   const { userDetails } = useAuthContext();
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (userDetails) {
@@ -97,6 +97,7 @@ const Login = () => {
                     <Input
                       id="email"
                       placeholder="メールアドレスを入力"
+                      autoComplete="off"
                       {...register('email', { required: true })}
                     />
                   </FormLabel>
@@ -113,6 +114,7 @@ const Login = () => {
                       type="password"
                       id="login-password"
                       placeholder="パスワードを入力"
+                      autoComplete="off"
                       {...register('password', { required: true })}
                     />
                   </FormLabel>

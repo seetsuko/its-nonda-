@@ -14,9 +14,10 @@ import { useAuthContext } from '@/src/feature/auth/provider/AuthProvider';
 import auth from '@/src/lib/firebase/firebase';
 
 const Header = () => {
-  const { userDetails } = useAuthContext();
   const toast = useToast();
   const router = useRouter();
+  const { userDetails } = useAuthContext();
+
   const loginPagePath = router.pathname === '/login';
 
   const handleLogoutSubmit = async () => {
